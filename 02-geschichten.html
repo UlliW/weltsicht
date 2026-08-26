@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>02 · Aus Informationen werden Geschichten</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Kapitel 2 – Ergänzungen; Grundlayout bleibt identisch zu Kapitel 1 */
+.k2-nav{position:sticky;top:4.45rem;z-index:9;display:flex;gap:.45rem;overflow:auto;padding:.55rem max(4%,calc((100% - 70rem)/2));background:#0b0e14e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff0d;scrollbar-width:none}
+.k2-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}
+.k2-nav a:hover{color:var(--txt);border-color:var(--a)}
+.k2-label{font-size:clamp(.88rem,1.6vw,1.05rem)}
+.story-clues{display:grid;gap:.7rem;margin:1.4rem 0}
+.story-clues div{padding:1rem 1.1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.story-clues b{color:var(--a);margin-right:.5rem}
+.story-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1.4rem}
+.story-options button,.evidence-card,.narrative-card{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);text-align:left}
+.story-options button{cursor:pointer;font:inherit;font-weight:700}
+.story-options button:hover,.story-options button:focus-visible,.evidence-card.selectable:hover,.evidence-card.selectable:focus-visible{outline:none;border-color:var(--a)}
+.story-options button.selected,.evidence-card.selected{border-color:var(--a);background:#79f2c012}
+.k2-action:disabled{opacity:.38;cursor:not-allowed}
+.k2-reveal{display:none;max-width:48rem;margin:1.5rem auto 0}
+.k2-reveal.on{display:block}
+.k2-term{padding:1rem 0;border-block:1px solid var(--line);margin:1.4rem 0;color:var(--a)}
+.k2-term strong{color:var(--a)}
+.missing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.4rem 0}
+.missing-grid article{padding:1.1rem;border:1px solid var(--line);border-radius:1rem;background:var(--s2)}
+.missing-grid h4{margin:.1rem 0 .5rem}
+.missing-grid p{margin:0;color:var(--mut)}
+.confirm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1.3rem 0}
+.evidence-card{cursor:pointer;font:inherit}
+.evidence-card small{display:block;margin-bottom:.35rem}
+.bankrun{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1.5rem 0}
+.bankrun div{position:relative;padding:1rem .8rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;text-align:center}
+.bankrun div:not(:last-child)::after{content:"→";position:absolute;right:-.7rem;top:50%;transform:translateY(-50%);color:var(--a);z-index:2}
+.bankrun b{display:block;color:var(--a);font-size:1.2rem}
+.bankrun span{font-size:.82rem;color:var(--mut)}
+.narratives{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+.narrative-card h4{font-size:1.15rem;margin:.1rem 0 .7rem}
+.narrative-card p{color:var(--mut);margin:.5rem 0}
+.narrative-card .facts{padding-top:.8rem;border-top:1px solid var(--line);font-size:.88rem}
+.chain{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.5rem;margin:1.7rem 0}
+.chain span{padding:.55rem .75rem;border:1px solid var(--line);border-radius:.7rem;background:var(--s)}
+.chain i{font-style:normal;color:var(--a)}
+.perspective-box{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center;padding:clamp(1.2rem,3vw,2rem);border:1px solid #79f2c077;border-radius:1.3rem;background:var(--s)}
+.perspective-box>b{display:grid;place-items:center;width:4rem;aspect-ratio:1;border-radius:50%;background:var(--a);color:#07110d;font-size:2rem}
+.perspective-box h2{margin:0}
+.perspective-box p{color:var(--mut);margin:.2rem 0}
+@media(max-width:40rem){
+ .k2-nav{top:4.4rem}
+ .story-options,.missing-grid,.confirm-grid,.narratives{grid-template-columns:1fr}
+ .bankrun{grid-template-columns:1fr}
+ .bankrun div:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-1.05rem;transform:translateX(50%)}
+}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 2 von 8</span><div class="bar"><i style="width:25%"></i></div></div>
+</header>
+
+<nav class="k2-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a>
+  <a href="#geschichte">Geschichte</a>
+  <a href="#wysiati">WYSIATI</a>
+  <a href="#confirmation">Bestätigung</a>
+  <a href="#narrativ">Narrativ</a>
+  <a href="#transfer">Transfer</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small class="k2-label">02 · DEUTEN</small>
+  <h1>Aus Informationen werden <em>Geschichten.</em></h1>
+  <p>Unser Gehirn sammelt nicht einfach Fakten. Es verbindet sie, ergänzt Lücken und macht daraus eine plausible Geschichte. Das ist enorm nützlich – und manchmal gefährlich überzeugend.</p>
+</section>
+
+<section id="geschichte">
+  <small>EXPERIMENT 01 · LÜCKEN FÜLLEN</small>
+  <h2>Was ist hier passiert?</h2>
+  <article class="experiment" id="storyExp">
+    <div class="story-clues">
+      <div><b>08:05</b> Eine Schülerin kommt zehn Minuten zu spät in den Unterricht.</div>
+      <div><b>08:07</b> Sie wirkt angespannt und sagt kaum etwas.</div>
+      <div><b>08:10</b> Ihre Hausaufgaben fehlen.</div>
+    </div>
+    <h3>Welche Erklärung kommt dir spontan am plausibelsten vor?</h3>
+    <div class="story-options">
+      <button>Sie hat verschlafen und war schlecht vorbereitet.</button>
+      <button>Auf dem Schulweg ist etwas passiert.</button>
+      <button>Zu Hause gab es heute Morgen ein Problem.</button>
+      <button>Ich habe zu wenig Informationen, um das zu wissen.</button>
+    </div>
+    <button class="btn k2-action" disabled>Auflösung anzeigen →</button>
+    <div class="k2-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Aus drei Beobachtungen ist bereits eine Geschichte geworden.</h3>
+      <p>Keine der ersten drei Erklärungen folgt zwingend aus den Informationen. Trotzdem erzeugt unser Denken sehr schnell Ursachen, Motive und Zusammenhänge. Das hilft uns, eine komplexe Welt handhabbar zu machen – kann aber Lücken mit Vermutungen füllen.</p>
+      <blockquote><b>Merksatz:</b> Plausibel ist nicht dasselbe wie belegt.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="wysiati">
+  <small>DENKPRINZIP</small>
+  <h2>Was du siehst, ist alles, was da ist?</h2>
+  <article class="panel">
+    <p>Daniel Kahneman nennt ein wichtiges Muster <strong>WYSIATI</strong>: <em>What You See Is All There Is.</em> Wir bauen Urteile bevorzugt aus den Informationen, die gerade verfügbar sind – und berücksichtigen oft zu wenig, welche Informationen fehlen.</p>
+    <div class="missing-grid">
+      <article><small>WAS DU WEISST</small><h4>sichtbare Informationen</h4><p>zu spät · angespannt · Hausaufgaben fehlen</p></article>
+      <article><small>WAS DU NICHT WEISST</small><h4>unsichtbare Informationen</h4><p>Warum? Was geschah vorher? Ist das typisch? Welche anderen Ursachen gibt es?</p></article>
+    </div>
+    <div class="k2-term">Fachbegriff: <strong>WYSIATI – What You See Is All There Is</strong></div>
+    <blockquote><b>Prüffrage:</b> Welche wichtige Information könnte mir gerade fehlen?</blockquote>
+  </article>
+</section>
+
+<section id="confirmation">
+  <small>EXPERIMENT 02 · BESTÄTIGUNG</small>
+  <h2>Eine Geschichte sucht sich passende Fakten.</h2>
+  <article class="experiment" id="confirmExp">
+    <p>Stell dir vor, dein erster Eindruck lautet: <strong>„Die Schülerin ist unzuverlässig.“</strong> Welche zwei Informationen würdest du am ehesten anklicken, um herauszufinden, ob dein Eindruck stimmt?</p>
+    <div class="confirm-grid">
+      <button class="evidence-card selectable" data-kind="confirm"><small>A</small>Sie hat letzte Woche ebenfalls einmal ihre Hausaufgaben vergessen.</button>
+      <button class="evidence-card selectable" data-kind="challenge"><small>B</small>Sie gibt ihre Aufgaben sonst fast immer pünktlich ab.</button>
+      <button class="evidence-card selectable" data-kind="confirm"><small>C</small>Vor einem Monat kam sie schon einmal zu spät.</button>
+      <button class="evidence-card selectable" data-kind="challenge"><small>D</small>Heute Morgen fiel ihre Straßenbahn aus.</button>
+    </div>
+    <button class="btn k2-action" disabled>Auflösung anzeigen →</button>
+    <div class="k2-reveal">
+      <p class="tag">AUFLÖSUNG</p><h3>Wir prüfen Hypothesen nicht immer neutral.</h3>
+      <p>Wenn eine Vermutung erst einmal im Kopf ist, suchen und gewichten Menschen häufig Informationen stärker, die zu ihr passen. Besonders gutes Prüfen bedeutet deshalb auch: gezielt nach Informationen zu suchen, die die eigene Vermutung <em>widerlegen könnten</em>.</p>
+      <div class="k2-term">Fachbegriff: <strong>Confirmation Bias (Bestätigungsfehler)</strong></div>
+      <blockquote><b>Merksatz:</b> Frage nicht nur „Was spricht dafür?“, sondern auch „Was müsste ich sehen, wenn ich falsch liege?“</blockquote>
+    </div>
+  </article>
+</section>
+
+<section>
+  <small>VOM GEDANKEN ZUR WIRKLICHKEIT</small>
+  <h2>Wenn eine Geschichte Folgen bekommt.</h2>
+  <article class="panel">
+    <p>Manchmal bleibt eine Interpretation nicht im Kopf. Menschen handeln nach ihr – und verändern dadurch die Wirklichkeit.</p>
+    <div class="bankrun">
+      <div><b>1</b><span>Gerücht: „Die Bank ist unsicher.“</span></div>
+      <div><b>2</b><span>Viele Kunden glauben es.</span></div>
+      <div><b>3</b><span>Sie heben gleichzeitig Geld ab.</span></div>
+      <div><b>4</b><span>Die Bank gerät tatsächlich in Schwierigkeiten.</span></div>
+    </div>
+    <p>Das <strong>Thomas-Theorem</strong> beschreibt genau dieses Prinzip: Wenn Menschen Situationen als real definieren, können diese Definitionen reale Konsequenzen haben. Das bedeutet nicht, dass jede Vorstellung wahr wird – sondern dass Überzeugungen Verhalten steuern können.</p>
+    <div class="k2-term">Fachbegriff: <strong>Thomas-Theorem</strong></div>
+    <blockquote><b>Merksatz:</b> Eine Vorstellung kann falsch beginnen und trotzdem reale Folgen erzeugen.</blockquote>
+  </article>
+</section>
+
+<section id="narrativ">
+  <small>NARRATIVE</small>
+  <h2>Fakten erzählen sich nicht selbst.</h2>
+  <p>Ein Narrativ verbindet ausgewählte Fakten zu einer sinnvollen Geschichte: Was ist das Problem? Was ist die Ursache? Wer handelt? Und wohin entwickelt sich die Situation?</p>
+  <div class="chain">
+    <span>Fakten</span><i>→</i><span>Auswahl</span><i>→</i><span>Zusammenhang</span><i>→</i><span>Bedeutung</span><i>→</i><span>Narrativ</span>
+  </div>
+  <article class="panel">
+    <h3>Narrativ bedeutet nicht „Lüge“.</h3>
+    <p>Ein Narrativ kann auf richtigen Fakten beruhen. Verzerrung entsteht beispielsweise dadurch, welche Fakten ausgewählt, ausgelassen oder miteinander verbunden werden. Deshalb können zwei unterschiedliche Geschichten teilweise auf denselben Fakten beruhen.</p>
+    <div class="k2-term">Fachbegriff: <strong>Narrativ</strong> – eine sinnstiftende Erzählstruktur, die Ereignisse und Informationen miteinander verbindet.</div>
+  </article>
+</section>
+
+<section id="transfer">
+  <small>TRANSFER · EIN DATENSATZ, ZWEI GESCHICHTEN</small>
+  <h2>Welche Geschichte erzählen die Zahlen?</h2>
+  <p>Angenommen, in einem Land steigt der Anteil erneuerbarer Energien innerhalb von zehn Jahren von 25 % auf 55 %. Gleichzeitig stammen weiterhin 45 % der Stromerzeugung aus anderen Quellen.</p>
+  <div class="narratives">
+    <article class="narrative-card"><small>NARRATIV A</small><h4>„Die Energiewende kommt voran.“</h4><p>Der Anteil erneuerbarer Energien hat sich in zehn Jahren mehr als verdoppelt. Ein grundlegender Umbau des Energiesystems ist sichtbar.</p><p class="facts">Fokus: Veränderung und Fortschritt.</p></article>
+    <article class="narrative-card"><small>NARRATIV B</small><h4>„Wir sind noch lange nicht am Ziel.“</h4><p>Trotz jahrelanger Energiewende stammen noch immer 45 % der Stromerzeugung aus anderen Quellen. Der Umbau ist unvollständig.</p><p class="facts">Fokus: verbleibende Lücke.</p></article>
+  </div>
+  <article class="panel">
+    <h3>Welches Narrativ ist richtig?</h3>
+    <p><strong>Beide können sachlich korrekt sein.</strong> Sie wählen aber unterschiedliche Bezugspunkte und erzeugen dadurch unterschiedliche Gesamteindrücke. Gutes Denken fragt deshalb nicht nur, ob einzelne Aussagen stimmen, sondern auch: <em>Was wird hervorgehoben – und was bleibt außerhalb der Geschichte?</em></p>
+  </article>
+</section>
+
+<section class="perspective-box">
+  <b>↔</b>
+  <div><small>DENKWERKZEUG FREIGESCHALTET</small><h2>Perspektive</h2><p><strong>Welche andere Geschichte könnte dieselben Fakten ebenfalls erklären?</strong></p></div>
+</section>
+
+<section class="end" id="abschluss">
+  <small>KAPITEL 2 · ABSCHLUSS</small>
+  <h2>Zwischen einem Fakt und einer Weltsicht liegt eine Geschichte.</h2>
+  <p>Wir brauchen Geschichten, um Komplexität zu verstehen. Entscheidend ist, sie nicht mit der Wirklichkeit selbst zu verwechseln.</p>
+  <div class="takeaways">
+    <span>Plausibel ≠ belegt</span><span>Fehlendes mitdenken</span><span>Gegenbelege suchen</span><span>Überzeugungen haben Folgen</span><span>Narrative prüfen</span>
+  </div>
+  <button class="btn" id="done2">Kapitel 2 als bearbeitet markieren ✓</button>
+  <a class="next disabled" href="#" aria-disabled="true"><small>ALS NÄCHSTES</small><strong>03 · Aus dem eigenen Kopf heraus →</strong><span>Neugier · Zweifel · Perspektivwechsel · Fantasie</span></a>
+</section>
+</main>
+
+<footer><a href="index.html">← Zur Lernreise</a><span>02 · Deuten</span></footer>
+
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  // Generic select-then-reveal for story experiment
+  const story=document.querySelector("#storyExp");
+  if(story){
+    const choices=[...story.querySelectorAll(".story-options button")], action=story.querySelector(".k2-action"), reveal=story.querySelector(".k2-reveal");
+    choices.forEach(b=>b.addEventListener("click",()=>{
+      choices.forEach(x=>x.classList.remove("selected")); b.classList.add("selected"); action.disabled=false;
+    }));
+    action.addEventListener("click",()=>{reveal.classList.add("on");action.style.display="none";});
+  }
+
+  // Confirmation experiment: exactly two selections before reveal
+  const confirm=document.querySelector("#confirmExp");
+  if(confirm){
+    const cards=[...confirm.querySelectorAll(".selectable")], action=confirm.querySelector(".k2-action"), reveal=confirm.querySelector(".k2-reveal");
+    const sync=()=>{action.disabled=cards.filter(x=>x.classList.contains("selected")).length!==2};
+    cards.forEach(c=>c.addEventListener("click",()=>{
+      if(!c.classList.contains("selected") && cards.filter(x=>x.classList.contains("selected")).length>=2) return;
+      c.classList.toggle("selected"); sync();
+    }));
+    action.addEventListener("click",()=>{
+      const chosen=cards.filter(x=>x.classList.contains("selected"));
+      const confirms=chosen.filter(x=>x.dataset.kind==="confirm").length;
+      const p=reveal.querySelector("p:nth-of-type(2)");
+      if(confirms===2) p.insertAdjacentHTML("afterbegin","<strong>Du hast zwei bestätigende Hinweise gewählt.</strong> ");
+      else if(confirms===1) p.insertAdjacentHTML("afterbegin","<strong>Du hast einen bestätigenden und einen widersprechenden Hinweis gewählt.</strong> ");
+      else p.insertAdjacentHTML("afterbegin","<strong>Du hast gezielt nach Gegenbelegen gesucht.</strong> ");
+      reveal.classList.add("on");action.style.display="none";
+    });
+  }
+
+  const done=document.querySelector("#done2");
+  if(done){
+    const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
+    if(current.includes(2))done.textContent="Kapitel 2 ist bearbeitet ✓";
+    done.addEventListener("click",()=>{
+      const set=new Set(JSON.parse(localStorage.getItem("wsdwDone")||"[]"));set.add(2);
+      localStorage.setItem("wsdwDone",JSON.stringify([...set]));done.textContent="Kapitel 2 ist bearbeitet ✓";
+    });
+  }
+});
+</script>
+</body>
+</html>
