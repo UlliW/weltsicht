@@ -1,15 +1,15 @@
-# Wie siehst du die Welt? – Prototyp
+# weltsicht – Kapitel 1, Version 2
 
-Responsive Dark-Mode-Prototyp für GitHub Pages.
+Diese Version ersetzt `01-denken.html` und erweitert das gemeinsame CSS/JS.
 
-## Dateien
-- `index.html` – Startseite und Lernreise
-- `01-denken.html` – Musterkapitel mit Anchoring-Experiment
-- `css/style.css` – gemeinsames responsives Design
-- `js/script.js` – Interaktion und lokaler Lernfortschritt
+Neu:
+- fünf Mini-Experimente: Aufmerksamkeit/Salience, Anker, Framing, Konformität, Overconfidence
+- verständliche deutsche Begriffe + Fachbegriffe
+- System-1/System-2-Brücke
+- Bias-Landkarte
+- Transferaufgabe und Denkwerkzeug
+- sticky Abschnittsnavigation für lange Kapitel
+- mobile-first responsive Layout
+- lokaler Kapitel-Fortschritt
 
-## Test
-`index.html` im Browser öffnen.
-
-## GitHub Pages
-Den kompletten Inhalt dieses Ordners in ein Repository hochladen und GitHub Pages für den `main`-Branch aktivieren. Es sind keine externen Bibliotheken und kein Server nötig.
+Hinweis: Das Konformitätsexperiment nutzt bewusst eine fingierte Gruppenangabe als Teil der Simulation und löst dies unmittelbar danach transparent auf.

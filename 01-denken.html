@@ -1,13 +1,185 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01 · Du siehst nicht einfach die Welt</title><link rel="stylesheet" href="css/style.css"></head><body>
-<header><a href="index.html" class="logo">WSDW</a><div>Kapitel 1 von 8<div class="bar"><i style="width:12.5%"></i></div></div></header><main>
-<section class="lessonhero"><small>01 · ICH & MEIN DENKEN</small><h1>Du siehst nicht einfach <em>die Welt.</em></h1><p>Kannst du deinem eigenen Urteil trauen? Bevor du etwas darüber liest, probierst du es selbst aus.</p></section>
-<section class="experiment" id="exp"><small>● EXPERIMENT 01</small><span id="count">SCHRITT 1 / 3</span>
-<div class="step on" data-n="1"><h2>Ist der höchste lebende Baum der Welt höher oder niedriger als <em>200 Meter</em>?</h2><p>Entscheide spontan. Nicht nachschlagen.</p><div class="choices"><button>Höher</button><button>Niedriger</button></div></div>
-<div class="step" data-n="2"><h2>Wie hoch ist er deiner Schätzung nach?</h2><p>Es geht nicht darum, richtig zu liegen.</p><div class="estimate"><input id="est" type="number" inputmode="numeric" placeholder="z. B. 150"><span>Meter</span></div><button class="btn" id="reveal">Auswerten →</button></div>
-<div class="step" data-n="3"><small>AUFLÖSUNG</small><h2>Du wurdest gerade <em>geankert.</em></h2><p>Der höchste bekannte lebende Baum, Hyperion, ist rund 116 Meter hoch. Die Zahl 200 war für die Sachfrage unnötig – kann aber deine Schätzung beeinflusst haben.</p><div class="result">Deine Schätzung <b id="res">–</b></div><p class="fine">Ein einzelner Versuch beweist nicht, dass du persönlich dem Effekt erlegen bist. In Gruppen zeigt sich der Einfluss solcher Anker jedoch zuverlässig.</p></div>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>01 · Du siehst nicht einfach die Welt</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 1 von 8</span><div class="bar"><i style="width:12.5%"></i></div></div>
+</header>
+
+<nav class="section-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a><a href="#denkcheck">Denkcheck</a><a href="#landkarte">Landkarte</a><a href="#transfer">Transfer</a><a href="#abschluss">Abschluss</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small>01 · ICH & MEIN DENKEN</small>
+  <h1>Du siehst nicht einfach <em>die Welt.</em></h1>
+  <p>Kannst du deinem eigenen Urteil trauen? Bevor du etwas darüber liest, probierst du es selbst aus.</p>
+  <div class="chapter-meta"><span>≈ 15–20 Minuten</span><span>5 Mini-Experimente</span><span>1 Denkwerkzeug</span></div>
 </section>
-<section class="panel"><small>BEGRIFF</small><h2>Anchoring Bias <span>Ankereffekt</span></h2><p>Eine zuerst wahrgenommene Zahl oder Information dient unbewusst als Bezugspunkt und kann spätere Einschätzungen unverhältnismäßig stark beeinflussen.</p><blockquote>MERKSATZ<br><b>Die erste Zahl im Kopf ist schwer wieder loszuwerden.</b></blockquote></section>
-<section><small>WAS IST HIER PASSIERT?</small><h2>Dein Gehirn liebt Abkürzungen.</h2><p>Viele Urteile entstehen schnell und automatisch. Kahneman nennt dies anschaulich <b>System 1</b>. Bewusstes Prüfen und Rechnen verlangt das langsamere <b>System 2</b>.</p><div class="twocol"><article class="card"><b>01</b><h3>Schnelles Denken</h3><p>intuitiv · automatisch · mühelos</p><strong>2 + 2 = ?</strong></article><article class="card"><b>02</b><h3>Langsames Denken</h3><p>bewusst · analytisch · anstrengend</p><strong>27 × 43 = ?</strong></article></div></section>
-<section class="panel"><small>TRANSFER</small><h2>Wo könnte ein Anker wirken?</h2><p>Ein Pullover kostet zuerst <s>120 €</s>, jetzt 69 €. Welche Zahl beeinflusst dein Gefühl dafür, ob 69 € günstig sind?</p><details><summary>Gedanken prüfen</summary><p>Die 120 € bilden einen Anker. Ob 69 € tatsächlich ein guter Preis sind, lässt sich daraus allein nicht ableiten.</p></details></section>
-<section class="unlock"><b>◇</b><div><small>DENKWERKZEUG</small><h2>Zweifel</h2><p>Welche Information beeinflusst gerade mein Urteil – und ist sie dafür überhaupt relevant?</p></div></section>
-<section class="end"><small>ZWISCHENSTAND</small><h2>Ein Begriff ist erst dann nützlich, wenn du ihn wiedererkennst.</h2><p>Der fertige Abschnitt wird weitere kurze Experimente zu Salienz, Framing, Konformität und Selbstüberschätzung enthalten.</p><button class="btn" id="done">Kapitel 1 als bearbeitet markieren ✓</button></section></main><footer><a href="index.html">← Zur Lernreise</a></footer><script src="js/script.js"></script></body></html>
+
+<section id="denkcheck">
+  <small>5-MINUTEN-DENKCHECK</small>
+  <h2>Erst entscheiden. Dann erklären.</h2>
+  <p class="intro">Bearbeite die fünf Situationen möglichst spontan. Es geht nicht darum, „richtig“ zu liegen – sondern darum, dein eigenes Denken zu beobachten.</p>
+
+  <article class="experiment" data-exp="attention">
+    <div class="exphead"><small>EXPERIMENT 01</small><span>AUFMERKSAMKEIT</span></div>
+    <div class="step on">
+      <h3>Welche Meldung bleibt eher hängen?</h3>
+      <div class="news-grid">
+        <button class="news choice" data-pick="dramatic"><b>HAIANGRIFF</b><span>Schwimmer vor Ferieninsel verletzt</span></button>
+        <button class="news choice" data-pick="plain"><b>VERKEHR</b><span>Neue Zahlen zu alltäglichen Unfallrisiken veröffentlicht</span></button>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="tag">AUFLÖSUNG</p><h3>Was auffällt, bekommt mehr Gewicht.</h3>
+      <p>Ungewöhnliche, emotionale oder bildhafte Informationen ziehen Aufmerksamkeit an. Dadurch können sie wichtiger oder wahrscheinlicher wirken, als sie tatsächlich sind.</p>
+      <div class="term"><strong>Aufmerksamkeits-Bias</strong><span>Fachbegriff: Salience Bias</span></div>
+      <blockquote><b>Merksatz:</b> Auffällig ≠ wichtig.</blockquote>
+    </div>
+  </article>
+
+  <article class="experiment" data-exp="anchor">
+    <div class="exphead"><small>EXPERIMENT 02</small><span>SCHÄTZEN</span></div>
+    <div class="step on anchor-q">
+      <h3>Ist der höchste lebende Baum der Welt höher oder niedriger als <em>200 Meter</em>?</h3>
+      <p>Entscheide spontan. Nicht nachschlagen.</p>
+      <div class="choices"><button class="choice">Höher</button><button class="choice">Niedriger</button></div>
+    </div>
+    <div class="step anchor-est">
+      <h3>Wie hoch ist er deiner Schätzung nach?</h3>
+      <div class="estimate"><input type="number" inputmode="numeric" placeholder="z. B. 150"><span>Meter</span></div>
+      <button class="btn anchor-go">Auswerten →</button>
+    </div>
+    <div class="reveal anchor-reveal">
+      <p class="tag">AUFLÖSUNG</p><h3>Die erste Zahl bleibt im Kopf.</h3>
+      <p>Hyperion, der höchste bekannte lebende Baum, ist rund 116 Meter hoch. Die 200 Meter waren für die Sachfrage unnötig, können aber die anschließende Schätzung beeinflussen.</p>
+      <div class="term"><strong>Ankereffekt</strong><span>Fachbegriff: Anchoring Bias</span></div>
+      <blockquote><b>Merksatz:</b> Ein Startwert kann spätere Urteile verschieben.</blockquote>
+    </div>
+  </article>
+
+  <article class="experiment" data-exp="frame">
+    <div class="exphead"><small>EXPERIMENT 03</small><span>FORMULIERUNG</span></div>
+    <div class="step on">
+      <h3>Welche Behandlung klingt für dich spontan besser?</h3>
+      <div class="choices vertical">
+        <button class="choice"><b>A</b> Nach der Behandlung leben nach fünf Jahren noch <em>90 von 100</em> Menschen.</button>
+        <button class="choice"><b>B</b> Nach der Behandlung sind nach fünf Jahren <em>10 von 100</em> Menschen gestorben.</button>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="tag">AUFLÖSUNG</p><h3>Die Fakten waren identisch.</h3>
+      <p>90 % Überleben und 10 % Sterblichkeit beschreiben denselben Sachverhalt. Trotzdem kann die Formulierung unsere Bewertung verändern.</p>
+      <div class="term"><strong>Rahmungs-Effekt</strong><span>Fachbegriff: Framing Effect</span></div>
+      <blockquote><b>Merksatz:</b> Gleiche Fakten können sich unterschiedlich anfühlen.</blockquote>
+    </div>
+  </article>
+
+  <article class="experiment" data-exp="conformity">
+    <div class="exphead"><small>EXPERIMENT 04</small><span>GRUPPE</span></div>
+    <div class="step on">
+      <p class="social-proof">Bisherige Antworten der Gruppe: <b>82 % sagen B</b></p>
+      <h3>Welche Linie ist gleich lang wie die Referenzlinie?</h3>
+      <div class="lines" aria-label="Linienvergleich">
+        <div><span>Referenz</span><i style="--w:72%"></i></div>
+        <div><span>A</span><i style="--w:48%"></i></div>
+        <div><span>B</span><i style="--w:58%"></i></div>
+        <div><span>C</span><i style="--w:72%"></i></div>
+      </div>
+      <div class="choices three"><button class="choice">A</button><button class="choice">B</button><button class="choice">C</button></div>
+    </div>
+    <div class="reveal">
+      <p class="tag">AUFLÖSUNG</p><h3>C war gleich lang.</h3>
+      <p>Die angeblichen „82 %“ waren Teil des Experiments. Mehrheitsmeinungen können unser Urteil beeinflussen – sogar bei einfachen Wahrnehmungsaufgaben. Das klassische Vorbild sind die Konformitätsexperimente von Solomon Asch.</p>
+      <div class="term"><strong>Konformitätseffekt</strong><span>Fachbegriff: Conformity Bias</span></div>
+      <blockquote><b>Merksatz:</b> Viele Stimmen machen eine Aussage nicht automatisch richtig.</blockquote>
+    </div>
+  </article>
+
+  <article class="experiment" data-exp="confidence">
+    <div class="exphead"><small>EXPERIMENT 05</small><span>SELBSTEINSCHÄTZUNG</span></div>
+    <div class="confidence-intro">
+      <h3>Wie gut kannst du dein eigenes Wissen einschätzen?</h3>
+      <p>Beantworte drei Fragen und gib jeweils an, wie sicher du bist.</p>
+      <button class="btn start-confidence">Los geht’s →</button>
+    </div>
+    <div class="confidence-quiz">
+      <div class="q" data-correct="B">
+        <p><b>1.</b> Welcher Planet ist der Sonne am nächsten?</p>
+        <div class="mini-choices"><button>A · Venus</button><button>B · Merkur</button><button>C · Mars</button></div>
+        <label>Wie sicher? <input type="range" min="50" max="100" value="75"><output>75 %</output></label>
+      </div>
+      <div class="q" data-correct="C">
+        <p><b>2.</b> Welches Tier ist näher mit Vögeln verwandt?</p>
+        <div class="mini-choices"><button>A · Eidechse</button><button>B · Schildkröte</button><button>C · Krokodil</button></div>
+        <label>Wie sicher? <input type="range" min="50" max="100" value="75"><output>75 %</output></label>
+      </div>
+      <div class="q" data-correct="A">
+        <p><b>3.</b> Was ist größer?</p>
+        <div class="mini-choices"><button>A · Afrika</button><button>B · Grönland</button></div>
+        <label>Wie sicher? <input type="range" min="50" max="100" value="75"><output>75 %</output></label>
+      </div>
+      <button class="btn confidence-go">Auswerten →</button>
+    </div>
+    <div class="reveal confidence-reveal">
+      <p class="tag">DEINE KALIBRIERUNG</p><h3><span id="score">–</span> richtig · Ø <span id="certainty">–</span> sicher</h3>
+      <p>Menschen überschätzen häufig, wie zuverlässig ihr Wissen oder Urteil ist. Drei Fragen sind natürlich kein psychologischer Test – sie machen aber sichtbar, dass <em>Sicherheit</em> und <em>Richtigkeit</em> zwei verschiedene Dinge sind.</p>
+      <div class="term"><strong>Selbstüberschätzung</strong><span>Fachbegriff: Overconfidence Bias</span></div>
+      <blockquote><b>Merksatz:</b> Sich sicher fühlen ≠ sicher richtig liegen.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section class="bridge">
+  <small>WAS IST HIER PASSIERT?</small>
+  <h2>Dein Gehirn liebt Abkürzungen.</h2>
+  <p>Viele Urteile entstehen schnell, automatisch und mit wenig bewusster Anstrengung. Daniel Kahneman beschreibt dies anschaulich als <b>System 1</b>. Bewusstes Prüfen, Vergleichen und Rechnen verlangt das langsamere und anstrengendere <b>System 2</b>.</p>
+  <div class="twocol">
+    <article class="card"><b>01</b><h3>Schnelles Denken</h3><p>intuitiv · automatisch · mühelos</p><strong>2 + 2 = ?</strong></article>
+    <article class="card"><b>02</b><h3>Langsames Denken</h3><p>bewusst · analytisch · anstrengend</p><strong>27 × 43 = ?</strong></article>
+  </div>
+  <p class="note">„System 1“ und „System 2“ sind hilfreiche Denkmodelle – keine zwei getrennten Orte im Gehirn.</p>
+</section>
+
+<section id="landkarte" class="map-section">
+  <small>LANDKARTE DES DENKENS</small><h2>Biases sind keine zufällige Liste.</h2>
+  <p>Man kann viele kognitive Verzerrungen danach ordnen, an welcher Stelle unseres Denkens sie besonders sichtbar werden.</p>
+  <div class="biasmap">
+    <article><span>01</span><h3>Was sehe ich?</h3><p><b>Aufmerksamkeit</b> · Availability · Confirmation · Negativity · WYSIATI</p></article>
+    <article><span>02</span><h3>Was schließe ich daraus?</h3><p><b>Anker</b> · <b>Framing</b> · Halo · Hindsight · Peak-End</p></article>
+    <article><span>03</span><h3>Wie sehe ich mich?</h3><p>Above-Average · <b>Overconfidence</b> · Dunning-Kruger</p></article>
+    <article><span>04</span><h3>Was machen andere?</h3><p><b>Conformity</b> · In-group · Groupthink</p></article>
+    <article><span>05</span><h3>Wie entscheide ich?</h3><p>Status quo · Loss Aversion · Sunk Cost</p></article>
+  </div>
+</section>
+
+<section id="transfer" class="panel">
+  <small>TRANSFER</small><h2>Jetzt ohne Hinweis.</h2>
+  <p>Ein neues Smartphone wird mit „statt 999 € nur 749 €“ beworben. Gleichzeitig zeigen dir fast alle Videos in deinem Feed begeisterte Käufer. Welche zwei Denkmechanismen könnten dein Urteil beeinflussen?</p>
+  <details><summary>Antwort prüfen</summary><p><b>Ankereffekt:</b> 999 € wird zum Vergleichswert. <b>Konformitätseffekt:</b> Die scheinbare Mehrheit kann das eigene Urteil verschieben. Zusätzlich wäre auch selektive Aufmerksamkeit denkbar.</p></details>
+</section>
+
+<section class="unlock">
+  <b>◇</b><div><small>DENKWERKZEUG FREIGESCHALTET</small><h2>Zweifel</h2><p><strong>Welche Information beeinflusst gerade mein Urteil – und ist sie dafür wirklich relevant?</strong></p></div>
+</section>
+
+<section id="abschluss" class="end">
+  <small>KAPITEL 1 · ABSCHLUSS</small>
+  <h2>Du bist deinem Denken nicht ausgeliefert.</h2>
+  <p>Der erste Schritt ist nicht, alle Biases auswendig zu kennen. Es reicht zunächst, einen Moment zu bemerken: <em>„Vielleicht sollte ich mein spontanes Urteil prüfen.“</em></p>
+  <div class="takeaways"><span>Auffällig ≠ wichtig</span><span>Startwerte wirken</span><span>Formulierungen wirken</span><span>Gruppen wirken</span><span>Sicherheit ≠ Richtigkeit</span></div>
+  <button class="btn" id="done">Kapitel 1 als bearbeitet markieren ✓</button>
+  <a class="next disabled" href="#" aria-disabled="true"><small>ALS NÄCHSTES</small><strong>02 · Aus Informationen werden Geschichten →</strong><span>WYSIATI · Framing · Narrativ · Thomas-Theorem</span></a>
+</section>
+</main>
+<footer><a href="index.html">← Zur Lernreise</a><span>01 · Ich & mein Denken</span></footer>
+<script src="js/script.js"></script>
+</body></html>
