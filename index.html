@@ -1,1 +1,32 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wie siehst du die Welt?</title><link rel="stylesheet" href="css/style.css"></head><body><header><a class="logo" href="index.html">WSDW</a><div><span id="pt">0 / 8 Kapitel</span><div class="bar"><i id="pf"></i></div></div></header><main><section class="lessonhero"><small>INTERAKTIVER SELBSTLERNKURS</small><h1>Wie siehst du <em>die Welt?</em></h1><p>Du siehst die Welt nicht einfach, wie sie ist. Dein Gehirn wählt aus, deutet, ergänzt und erzählt Geschichten. Das kann uns täuschen – und ermöglicht uns zugleich, Neues zu denken und die Welt zu verändern.</p><a class="btn" href="01-denken.html">Lernreise starten →</a></section><section><small>DEINE LERNREISE</small><h2>Vom eigenen Denken zur Veränderung</h2><div class="biasmap"><article><span>01</span><h3><a href="01-denken.html">Du siehst nicht einfach die Welt</a></h3><p>Aufmerksamkeit · Anker · Framing · Konformität · Selbstüberschätzung</p></article><article><span>02</span><h3>Aus Informationen werden Geschichten</h3><p>WYSIATI · Narrativ · Thomas-Theorem</p></article><article><span>03</span><h3>Aus dem eigenen Kopf heraus</h3><p>Neugier · Zweifel · Perspektive · Fantasie</p></article><article><span>04</span><h3>Ein wirklich großes Problem</h3><p>Normalitäts-Bias · psychologische Distanz · Kassandra</p></article><article><span>05</span><h3>ZOOM OUT!</h3><p>Fortschritt · Big Five · planetare Grenzen</p></article><article><span>06</span><h3>Können Menschen große Probleme lösen?</h3><p>Montreal · Kooperation · begründeter Optimismus</p></article><article><span>07</span><h3>Wo ist der Hebel?</h3><p>Systemdenken · Leverage Points · Transformation</p></article><article><span>08</span><h3>Die Welt, die noch nicht existiert</h3><p>Fantasie · Narrativ · Handlungsfähigkeit</p></article></div></section></main><footer>Wie siehst du die Welt? · Prototyp V2</footer><script src="js/script.js"></script></body></html>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wie siehst du die Welt?</title><link rel="stylesheet" href="css/style.css"><style>
+.journey-map{gap:.7rem}
+.journey-link{display:block;border-radius:1rem}
+.journey-link article,.journey-future{
+  border-radius:1rem;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.journey-link:hover article,.journey-link:focus-visible article{
+  transform:translateY(-3px);
+  border-color:var(--a);
+  background:#79f2c00b;
+  box-shadow:0 .8rem 2rem #0000002b;
+}
+.journey-link:focus-visible{outline:none}
+.journey-future:hover{
+  transform:translateY(-2px);
+  background:#ffffff025;
+}
+@media(prefers-reduced-motion:reduce){
+  .journey-link article,.journey-future{transition:none}
+  .journey-link:hover article,.journey-future:hover{transform:none}
+}
+</style></head><body><header><a class="logo" href="index.html">WSDW</a><div><span id="pt">0 / 8 Kapitel</span><div class="bar"><i id="pf"></i></div></div></header><main><section class="lessonhero"><small>INTERAKTIVER SELBSTLERNKURS</small><h1>Wie siehst du <em>die Welt?</em></h1><p>Du siehst die Welt nicht einfach, wie sie ist. Dein Gehirn wählt aus, deutet, ergänzt und erzählt Geschichten. Das kann uns täuschen – und ermöglicht uns zugleich, Neues zu denken und die Welt zu verändern.</p><a class="btn" href="01-denken.html">Lernreise starten →</a></section><section><small>DEINE LERNREISE</small><h2>Vom eigenen Denken zur Veränderung</h2><div class="biasmap journey-map">
+<a class="journey-link" href="01-denken.html"><article><span>01</span><h3>Du siehst nicht einfach die Welt</h3><p>Aufmerksamkeit · Anker · Framing · Konformität · Selbstüberschätzung</p></article></a>
+<a class="journey-link" href="02-geschichten.html"><article><span>02</span><h3>Aus Informationen werden Geschichten</h3><p>WYSIATI · Narrativ · Thomas-Theorem</p></article></a>
+<article class="journey-future"><span>03</span><h3>Aus dem eigenen Kopf heraus</h3><p>Neugier · Zweifel · Perspektive · Fantasie</p></article>
+<article class="journey-future"><span>04</span><h3>Ein wirklich großes Problem</h3><p>Normalitäts-Bias · psychologische Distanz · Kassandra</p></article>
+<article class="journey-future"><span>05</span><h3>ZOOM OUT!</h3><p>Fortschritt · Big Five · planetare Grenzen</p></article>
+<article class="journey-future"><span>06</span><h3>Können Menschen große Probleme lösen?</h3><p>Montreal · Kooperation · begründeter Optimismus</p></article>
+<article class="journey-future"><span>07</span><h3>Wo ist der Hebel?</h3><p>Systemdenken · Leverage Points · Transformation</p></article>
+<article class="journey-future"><span>08</span><h3>Die Welt, die noch nicht existiert</h3><p>Fantasie · Narrativ · Handlungsfähigkeit</p></article>
+</div></section></main><footer>Wie siehst du die Welt? · Prototyp V2</footer><script src="js/script.js"></script></body></html>
