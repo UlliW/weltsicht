@@ -54,6 +54,9 @@
  .bankrun{grid-template-columns:1fr}
  .bankrun div:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-1.05rem;transform:translateX(50%)}
 }
+
+/* Interaktiver Narrativ-Transfer */
+.headline-options{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.3rem 0}.headline-options button,.info-options button{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer}.headline-options button small{display:block;margin-bottom:.45rem}.headline-options button:hover,.headline-options button:focus-visible,.info-options button:hover,.info-options button:focus-visible{outline:none;border-color:var(--a)}.headline-options button.selected,.info-options button.selected{border-color:var(--a);background:#79f2c012}.narrative-first:disabled{opacity:.38;cursor:not-allowed}.narrative-stage2,.narrative-final{display:none;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}.narrative-stage2.on,.narrative-final.on{display:block}.narrative-focus{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.3rem 0 2rem}.narrative-focus article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}.narrative-focus p{margin:.4rem 0 0;color:var(--mut)}.next-question{margin-top:2rem}.info-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1rem}.info-options button{display:flex;align-items:center;gap:.8rem;font-weight:700}.info-options span{display:grid;place-items:center;flex:0 0 2.6rem;aspect-ratio:1;border-radius:50%;background:#79f2c012;color:var(--a);font-size:.78rem;font-weight:800}@media(max-width:40rem){.headline-options,.narrative-focus,.info-options{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -171,17 +174,39 @@
 </section>
 
 <section id="transfer">
-  <small>TRANSFER · EIN DATENSATZ, ZWEI GESCHICHTEN</small>
-  <h2>Welche Geschichte erzählen die Zahlen?</h2>
+  <small>TRANSFER · EIN DATENSATZ, DREI GESCHICHTEN</small>
+  <h2>Welche Geschichte würdest du erzählen?</h2>
   <p>Angenommen, in einem Land steigt der Anteil erneuerbarer Energien innerhalb von zehn Jahren von 25 % auf 55 %. Gleichzeitig stammen weiterhin 45 % der Stromerzeugung aus anderen Quellen.</p>
-  <div class="narratives">
-    <article class="narrative-card"><small>NARRATIV A</small><h4>„Die Energiewende kommt voran.“</h4><p>Der Anteil erneuerbarer Energien hat sich in zehn Jahren mehr als verdoppelt. Ein grundlegender Umbau des Energiesystems ist sichtbar.</p><p class="facts">Fokus: Veränderung und Fortschritt.</p></article>
-    <article class="narrative-card"><small>NARRATIV B</small><h4>„Wir sind noch lange nicht am Ziel.“</h4><p>Trotz jahrelanger Energiewende stammen noch immer 45 % der Stromerzeugung aus anderen Quellen. Der Umbau ist unvollständig.</p><p class="facts">Fokus: verbleibende Lücke.</p></article>
-  </div>
-  <article class="panel">
-    <h3>Welches Narrativ ist richtig?</h3>
-    <p><strong>Beide können sachlich korrekt sein.</strong> Sie wählen aber unterschiedliche Bezugspunkte und erzeugen dadurch unterschiedliche Gesamteindrücke. Gutes Denken fragt deshalb nicht nur, ob einzelne Aussagen stimmen, sondern auch: <em>Was wird hervorgehoben – und was bleibt außerhalb der Geschichte?</em></p>
+  <article class="experiment" id="narrativeExp">
+    <h3>Welche Überschrift würdest du spontan wählen?</h3>
+    <div class="headline-options">
+      <button data-focus="Fortschritt"><small>A</small><strong>„Energiewende macht riesige Fortschritte“</strong></button>
+      <button data-focus="Lücke"><small>B</small><strong>„Fast die Hälfte noch immer nicht erneuerbar“</strong></button>
+      <button data-focus="Meilenstein"><small>C</small><strong>„Erneuerbare erreichen erstmals die Mehrheit“</strong></button>
+    </div>
+    <button class="btn narrative-first" disabled>Auswertung anzeigen →</button>
+    <div class="narrative-stage2">
+      <p class="tag">DEINE AUSWAHL</p><h3>Alle drei Überschriften lassen sich mit denselben Zahlen vereinbaren.</h3>
+      <p id="headlineFeedback"></p>
+      <div class="narrative-focus">
+        <article><small>A · FORTSCHRITT</small><p>stellt die <strong>Veränderung</strong> der letzten zehn Jahre in den Mittelpunkt.</p></article>
+        <article><small>B · LÜCKE</small><p>stellt das <strong>noch ungelöste Problem</strong> in den Mittelpunkt.</p></article>
+        <article><small>C · MEILENSTEIN</small><p>stellt das <strong>Überschreiten der 50-%-Marke</strong> in den Mittelpunkt.</p></article>
+      </div>
+      <h3 class="next-question">Welche Information möchtest du als Nächstes wissen?</h3><p>Du darfst eine auswählen.</p>
+      <div class="info-options">
+        <button><span>€</span>Entwicklung der Strompreise</button><button><span>CO₂</span>Entwicklung des CO₂-Ausstoßes</button>
+        <button><span>↔</span>Vergleich mit anderen Ländern</button><button><span>30</span>Entwicklung der letzten 30 Jahre</button>
+      </div>
+    </div>
+    <div class="narrative-final">
+      <p class="tag">WAS GERADE PASSIERT IST</p><h3>Auch die nächste Frage lenkt die Geschichte.</h3>
+      <p>Welche Geschichte plausibel erscheint, hängt nicht nur von vorhandenen Fakten ab, sondern auch davon, <strong>welche zusätzlichen Informationen wir suchen</strong>. Damit treffen hier WYSIATI, Confirmation Bias und Narrativ aufeinander.</p>
+      <div class="chain"><span>Fakten</span><i>→</i><span>Auswahl</span><i>→</i><span>Perspektive</span><i>→</i><span>Narrativ</span></div>
+      <blockquote><b>Prüffrage:</b> Welche andere Geschichte könnten dieselben Fakten ebenfalls erzählen?</blockquote>
+    </div>
   </article>
+  <article class="panel"><h3>Welches Narrativ ist richtig?</h3><p><strong>Mehrere können sachlich korrekt sein.</strong> Sie wählen aber unterschiedliche Bezugspunkte und erzeugen dadurch unterschiedliche Gesamteindrücke. Gutes Denken fragt deshalb nicht nur, ob einzelne Aussagen stimmen, sondern auch: <em>Was wird hervorgehoben – und was bleibt außerhalb der Geschichte?</em></p></article>
 </section>
 
 <section class="perspective-box">
@@ -236,6 +261,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   }
 
+
+  const narrative=document.querySelector("#narrativeExp");
+  if(narrative){
+    const headlines=[...narrative.querySelectorAll(".headline-options button")], first=narrative.querySelector(".narrative-first"), stage2=narrative.querySelector(".narrative-stage2"), feedback=narrative.querySelector("#headlineFeedback"); let focus="";
+    headlines.forEach(b=>b.addEventListener("click",()=>{headlines.forEach(x=>x.classList.remove("selected"));b.classList.add("selected");focus=b.dataset.focus;first.disabled=false;}));
+    first.addEventListener("click",()=>{const m={Fortschritt:"Du hast A gewählt. Damit machst du die Veränderung und den Fortschritt zum Mittelpunkt deiner Geschichte.",Lücke:"Du hast B gewählt. Damit machst du die verbleibende Lücke und das noch ungelöste Problem zum Mittelpunkt deiner Geschichte.",Meilenstein:"Du hast C gewählt. Damit machst du einen erreichten Meilenstein – die Mehrheit erneuerbarer Energien – zum Mittelpunkt deiner Geschichte."};feedback.textContent=m[focus];stage2.classList.add("on");first.style.display="none";});
+    const infos=[...narrative.querySelectorAll(".info-options button")];infos.forEach(b=>b.addEventListener("click",()=>{infos.forEach(x=>x.classList.remove("selected"));b.classList.add("selected");narrative.querySelector(".narrative-final").classList.add("on");}));
+  }
   const done=document.querySelector("#done2");
   if(done){
     const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
