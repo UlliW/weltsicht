@@ -91,6 +91,24 @@
  .k3-nav{top:4.4rem}
  .question-cloud,.evidence-grid,.brain-grid,.more-brain-grid,.tool-unlocks{grid-template-columns:1fr}
 }
+
+/* Vereinfachter Gehirn-Exkurs */
+.simple-brain{margin:1.4rem 0}
+.brain-visual{max-width:38rem;margin:0 auto 1rem}
+.brain-visual svg{display:block;width:100%;height:auto}
+.brain-outline{fill:var(--s2);stroke:var(--line);stroke-width:4}
+.brain-line{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round}
+.brain-hotspot{fill:#79f2c018;stroke:var(--a);stroke-width:3}
+.brain-visual text{fill:var(--a);font-size:22px;font-weight:800;text-anchor:middle}
+.brain-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.brain-step{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer}
+.brain-step b{display:block;color:var(--a);margin-bottom:.35rem}
+.brain-step span{color:var(--mut);font-size:.9rem}
+.brain-step:hover,.brain-step:focus-visible{outline:none;border-color:var(--a)}
+.brain-step.active{border-color:var(--a);background:#79f2c012}
+.brain-simple-detail{margin-top:.8rem;min-height:5.2rem;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009}
+@media(max-width:40rem){.brain-steps{grid-template-columns:1fr}}
+
 </style>
 </head>
 
@@ -229,35 +247,60 @@
 
 <section id="gehirn">
   <small>KURZER BLICK INS GEHIRN</small>
-  <h2>Wer macht was, wenn wir uns etwas vorstellen?</h2>
-  <p>Es gibt kein einzelnes „Fantasiezentrum“. Verschiedene Netzwerke und Hirnregionen arbeiten zusammen. Tippe die vier Felder an.</p>
+  <h2>Was passiert, wenn du dir etwas Neues vorstellst?</h2>
+  <p>Fantasie entsteht nicht an einer einzigen Stelle im Gehirn. Vereinfacht kann man sich den Vorgang als Zusammenspiel von drei Funktionen vorstellen.</p>
 
-  <div class="brain-grid" id="brainGrid">
-    <button class="brain-node active" data-brain="hippocampus"><b>Hippocampus</b><span>Erinnerungsbausteine</span></button>
-    <button class="brain-node" data-brain="dmn"><b>Default Mode Network</b><span>kombinieren & simulieren</span></button>
-    <button class="brain-node" data-brain="salience"><b>Salience Network</b><span>Interessantes hervorheben</span></button>
-    <button class="brain-node" data-brain="pfc"><b>Präfrontale Netzwerke</b><span>prüfen & weiterentwickeln</span></button>
-  </div>
+  <div class="simple-brain" id="simpleBrain">
+    <div class="brain-visual" aria-label="Vereinfachte Darstellung eines Gehirns">
+      <svg viewBox="0 0 620 330" role="img" aria-labelledby="brainTitle brainDesc">
+        <title id="brainTitle">Vereinfachtes Gehirn mit drei Denkfunktionen</title>
+        <desc id="brainDesc">Drei farblich hervorgehobene Bereiche stehen für Erinnern, neu Kombinieren sowie Prüfen und Auswählen.</desc>
+        <path class="brain-outline" d="M135 253C72 237 50 181 78 137c13-21 34-34 58-38 8-39 42-66 83-62 22-28 66-35 98-14 37-17 82-1 98 35 39-2 73 25 80 63 35 13 54 51 43 85-11 35-44 57-80 56-19 28-55 41-88 30-30 25-76 25-107 0-32 13-70 2-90-26-13 2-26 1-38-3z"/>
+        <path class="brain-line" d="M180 85c-25 30-25 69 0 99M272 55c-20 39-15 81 13 113M382 62c19 34 17 73-6 105M454 111c-29 19-42 51-35 83M151 201c35-17 73-12 102 14M288 198c33-20 77-19 109 3"/>
+        <circle class="brain-hotspot" cx="210" cy="178" r="34"/>
+        <circle class="brain-hotspot" cx="327" cy="116" r="38"/>
+        <circle class="brain-hotspot" cx="425" cy="173" r="34"/>
+        <text x="210" y="184">1</text>
+        <text x="327" y="123">2</text>
+        <text x="425" y="180">3</text>
+      </svg>
+    </div>
 
-  <div class="brain-detail" id="brainDetail">
-    <strong>Hippocampus:</strong> hilft dabei, episodische Erinnerungen abzurufen und Bausteine früherer Erfahrungen für neue Vorstellungen bereitzustellen.
+    <div class="brain-steps">
+      <button class="brain-step active" data-simple="remember">
+        <b>1 · Erinnern</b>
+        <span>Bekanntes bereitstellen</span>
+      </button>
+      <button class="brain-step" data-simple="combine">
+        <b>2 · Neu kombinieren</b>
+        <span>Bausteine anders verbinden</span>
+      </button>
+      <button class="brain-step" data-simple="check">
+        <b>3 · Prüfen & auswählen</b>
+        <span>Ideen bewerten und entwickeln</span>
+      </button>
+    </div>
+
+    <div class="brain-simple-detail" id="simpleBrainDetail">
+      <strong>Erinnern:</strong> Dein Gehirn greift auf Dinge zurück, die du schon gesehen, erlebt oder gelernt hast. Diese Erinnerungen liefern die Bausteine für neue Vorstellungen.
+    </div>
   </div>
 
   <div class="chain">
-    <span>Erinnern</span><i>→</i><span>Kombinieren</span><i>→</i><span>Relevanz</span><i>→</i><span>Prüfen</span>
+    <span>Erinnern</span><i>→</i><span>Neu kombinieren</span><i>→</i><span>Prüfen</span><i>→</i><span>neue Idee</span>
   </div>
 
   <article class="panel">
     <h3>Die wichtige Pointe</h3>
-    <p><strong>Dass unser Gehirn Wirklichkeit konstruiert, ist nicht nur eine Fehlerquelle.</strong> Genau dieselbe Fähigkeit erlaubt uns, Vergangenes neu zu verbinden, Zukunft zu simulieren und uns etwas vorzustellen, das noch gar nicht existiert.</p>
+    <p><strong>Fantasie entsteht häufig, indem dein Gehirn Bekanntes neu kombiniert.</strong> Dass unser Gehirn Wirklichkeit nicht einfach nur abbildet, ist also nicht nur eine mögliche Fehlerquelle. Es erlaubt uns auch, Zukunft zu simulieren und uns Dinge vorzustellen, die noch gar nicht existieren.</p>
   </article>
 
   <details class="more-brain">
-    <summary>Mehr wissen: weitere beteiligte Regionen</summary>
+    <summary>Wenn du genauer wissen willst: drei Fachbegriffe</summary>
     <div class="more-brain-grid">
-      <article><strong>Amygdala</strong><p>bewertet Reize emotional und hilft, besonders bedeutsame oder bedrohliche Informationen hervorzuheben.</p></article>
-      <article><strong>ACC</strong><p>ist unter anderem an Konflikt- und Fehlererkennung sowie kognitiver Kontrolle beteiligt.</p></article>
-      <article><strong>Insula</strong><p>verknüpft Körperzustände mit subjektivem Erleben und spielt bei Interozeption und Salienz eine Rolle.</p></article>
+      <article><strong>Hippocampus</strong><p>hilft dabei, Erinnerungen abzurufen und miteinander zu verbinden.</p></article>
+      <article><strong>Default Mode Network</strong><p>ist ein Netzwerk, das unter anderem bei inneren Vorstellungen und gedanklichen Zukunftsszenarien beteiligt ist.</p></article>
+      <article><strong>Präfrontaler Kortex</strong><p>hilft, Ideen zu prüfen, auszuwählen und zielgerichtet weiterzuentwickeln.</p></article>
     </div>
   </details>
 </section>
@@ -382,20 +425,19 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   }
 
-  // Gehirn
-  const brain=document.querySelector("#brainGrid");
-  const detail=document.querySelector("#brainDetail");
-  if(brain && detail){
+  // Vereinfachter Gehirn-Exkurs
+  const simpleBrain=document.querySelector("#simpleBrain");
+  const simpleDetail=document.querySelector("#simpleBrainDetail");
+  if(simpleBrain && simpleDetail){
     const texts={
-      hippocampus:"<strong>Hippocampus:</strong> hilft dabei, episodische Erinnerungen abzurufen und Bausteine früherer Erfahrungen für neue Vorstellungen bereitzustellen.",
-      dmn:"<strong>Default Mode Network:</strong> ist besonders aktiv, wenn wir nicht eng auf eine äußere Aufgabe fokussiert sind. Es unterstützt unter anderem innere Vorstellungen, autobiografisches Denken und Zukunftssimulationen.",
-      salience:"<strong>Salience Network:</strong> hilft dabei, besonders relevante oder auffällige Informationen hervorzuheben und Aufmerksamkeit zwischen inneren und äußeren Anforderungen umzuschalten.",
-      pfc:"<strong>Präfrontale Netzwerke:</strong> unterstützen zielgerichtetes Denken, Arbeitsgedächtnis, Auswahl und Bewertung. Sie helfen, spontane Ideen zu ordnen und weiterzuentwickeln."
+      remember:"<strong>Erinnern:</strong> Dein Gehirn greift auf Dinge zurück, die du schon gesehen, erlebt oder gelernt hast. Diese Erinnerungen liefern die Bausteine für neue Vorstellungen.",
+      combine:"<strong>Neu kombinieren:</strong> Dein Gehirn kann bekannte Bausteine auf ungewohnte Weise miteinander verbinden. Aus Fahrrad, Baum und Bushaltestelle kann so eine Idee entstehen, die vorher noch nicht da war.",
+      check:"<strong>Prüfen & auswählen:</strong> Nicht jede spontane Idee ist brauchbar. Dein Gehirn kann Möglichkeiten vergleichen, verwerfen, verändern und gezielt weiterentwickeln."
     };
-    brain.querySelectorAll(".brain-node").forEach(b=>b.addEventListener("click",()=>{
-      brain.querySelectorAll(".brain-node").forEach(x=>x.classList.remove("active"));
+    simpleBrain.querySelectorAll(".brain-step").forEach(b=>b.addEventListener("click",()=>{
+      simpleBrain.querySelectorAll(".brain-step").forEach(x=>x.classList.remove("active"));
       b.classList.add("active");
-      detail.innerHTML=texts[b.dataset.brain];
+      simpleDetail.innerHTML=texts[b.dataset.simple];
     }));
   }
 
