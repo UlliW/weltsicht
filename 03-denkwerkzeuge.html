@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>03 · Aus dem eigenen Kopf heraus</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Kapitel 3 – Ergänzungen; Grundlayout bleibt identisch */
+.k3-nav{position:sticky;top:4.45rem;z-index:9;display:flex;gap:.45rem;overflow:auto;padding:.55rem max(4%,calc((100% - 70rem)/2));background:#0b0e14e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff0d;scrollbar-width:none}
+.k3-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}
+.k3-nav a:hover{color:var(--txt);border-color:var(--a)}
+.k3-label{font-size:clamp(.88rem,1.6vw,1.05rem)}
+.k3-reveal{display:none;max-width:48rem;margin:1.5rem auto 0}
+.k3-reveal.on{display:block}
+.k3-action:disabled{opacity:.38;cursor:not-allowed}
+
+/* Neugier */
+.question-cloud{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.2rem 0}
+.question-chip{min-height:4rem;padding:.85rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer}
+.question-chip:hover,.question-chip:focus-visible{outline:none;border-color:var(--a)}
+.question-chip.selected{border-color:var(--a);background:#79f2c012}
+.question-counter{color:var(--mut);font-size:.9rem;margin-top:.8rem}
+.curiosity-box{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:1rem;border:1px solid var(--line);border-radius:1rem;background:var(--s2);margin:1.2rem 0}
+.curiosity-box>b{color:var(--a);font-size:1.6rem}
+
+/* Evidenz */
+.claim{padding:1rem 1.1rem;margin:1rem 0 1.2rem;border-left:.22rem solid var(--a);background:#79f2c009}
+.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+.evidence-grid button{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer}
+.evidence-grid button:hover,.evidence-grid button:focus-visible{outline:none;border-color:var(--a)}
+.evidence-grid button.selected{border-color:var(--a);background:#79f2c012}
+.evidence-grid small{display:block;margin-bottom:.4rem}
+.evidence-rank{display:grid;gap:.5rem;margin:1.2rem 0}
+.evidence-rank div{display:grid;grid-template-columns:2rem 1fr;gap:.7rem;align-items:start;padding:.8rem;border-bottom:1px solid var(--line)}
+.evidence-rank b{color:var(--a)}
+
+/* Perspektive */
+.perspective-scene{display:grid;gap:.8rem;margin:1.2rem 0}
+.perspective-view{display:none;padding:1.1rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem}
+.perspective-view.on{display:block}
+.perspective-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.perspective-tabs button{padding:.65rem .8rem;background:var(--s2);border:1px solid var(--line);border-radius:99rem;color:var(--txt);font:inherit;cursor:pointer}
+.perspective-tabs button.active{border-color:var(--a);color:var(--a)}
+.view-tag{color:var(--a);font-weight:800;font-size:.75rem;letter-spacing:.12em}
+
+/* Fantasie */
+.ingredient-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.2rem 0}
+.ingredient{display:flex;flex-direction:column;justify-content:space-between;min-height:8rem;padding:1rem;border:1px solid var(--line);border-radius:1rem;background:var(--s2)}
+.ingredient b{font-size:1.25rem;color:var(--a)}
+.idea-box{width:100%;min-height:7rem;padding:1rem;background:#0b1018;color:var(--txt);border:1px solid var(--line);border-radius:.9rem;resize:vertical;font:inherit}
+.idea-result{display:none;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.idea-result.on{display:block}
+
+/* Gehirn */
+.brain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin:1.2rem 0}
+.brain-node{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem;cursor:pointer;min-height:9rem}
+.brain-node:hover,.brain-node:focus-visible{outline:none;border-color:var(--a)}
+.brain-node.active{border-color:var(--a);background:#79f2c012}
+.brain-node b{display:block;color:var(--a);margin-bottom:.5rem}
+.brain-detail{min-height:6rem;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009}
+.more-brain{margin-top:1rem}
+.more-brain summary{color:var(--a);font-weight:800;cursor:pointer}
+.more-brain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}
+.more-brain-grid article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+
+/* Werkzeug-Transfer */
+.tool-transfer{display:grid;gap:1rem}
+.scenario{padding:1.1rem;background:var(--s);border:1px solid var(--line);border-radius:1rem}
+.scenario h3{margin:.1rem 0 .7rem}
+.tool-options{display:flex;flex-wrap:wrap;gap:.5rem}
+.tool-options button{padding:.65rem .8rem;background:var(--s2);border:1px solid var(--line);border-radius:99rem;color:var(--txt);font:inherit;cursor:pointer}
+.tool-options button:hover,.tool-options button:focus-visible{outline:none;border-color:var(--a)}
+.tool-options button.selected{border-color:var(--a);background:#79f2c012}
+.tool-feedback{display:none;margin-top:.8rem;color:var(--mut)}
+.tool-feedback.on{display:block}
+
+/* Werkzeugkarten */
+.tool-unlocks{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.tool-unlock-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;padding:1.2rem;border:1px solid #79f2c077;border-radius:1.3rem;background:var(--s)}
+.tool-unlock-card>b{display:grid;place-items:center;width:3.8rem;aspect-ratio:1;border-radius:50%;background:var(--a);color:#07110d;font-size:1.7rem}
+.tool-unlock-card h3{margin:.1rem 0 .3rem}
+.tool-unlock-card p{margin:0;color:var(--mut)}
+
+@media(max-width:48rem){
+ .question-cloud,.brain-grid{grid-template-columns:repeat(2,1fr)}
+ .ingredient-row{grid-template-columns:1fr}
+}
+@media(max-width:40rem){
+ .k3-nav{top:4.4rem}
+ .question-cloud,.evidence-grid,.brain-grid,.more-brain-grid,.tool-unlocks{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 3 von 8</span><div class="bar"><i style="width:37.5%"></i></div></div>
+</header>
+
+<nav class="k3-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a>
+  <a href="#neugier">Neugier</a>
+  <a href="#zweifel">Zweifel</a>
+  <a href="#perspektive">Perspektive</a>
+  <a href="#fantasie">Fantasie</a>
+  <a href="#gehirn">Gehirn</a>
+  <a href="#transfer">Transfer</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small class="k3-label">03 · BESSER DENKEN</small>
+  <h1>Aus dem eigenen Kopf <em>heraus.</em></h1>
+  <p>Unser Denken ist schnell, nützlich und manchmal verzerrt. Die gute Nachricht: Wir können bewusst gegensteuern – mit Fragen, Evidenz, Perspektivwechseln und Fantasie.</p>
+</section>
+
+<section id="neugier">
+  <small>WERKZEUG 01 · NEUGIER</small>
+  <h2>Was weiß ich noch nicht?</h2>
+  <article class="experiment" id="curiosityExp">
+    <h3>Ein scheinbar einfacher Gegenstand: ein Bleistift.</h3>
+    <p>Welche Fragen machen ihn plötzlich interessant? Wähle mindestens drei.</p>
+    <div class="question-cloud">
+      <button class="question-chip">Warum schreibt Graphit überhaupt?</button>
+      <button class="question-chip">Wie kommt das Holz um die Mine?</button>
+      <button class="question-chip">Woher stammen die Rohstoffe?</button>
+      <button class="question-chip">Warum ist ein Bleistift meist sechseckig?</button>
+      <button class="question-chip">Wie viele Kilometer Linie kann er zeichnen?</button>
+      <button class="question-chip">Wer hat den Bleistift erfunden?</button>
+    </div>
+    <p class="question-counter">0 von mindestens 3 Fragen ausgewählt.</p>
+    <button class="btn k3-action" disabled>Weiter →</button>
+
+    <div class="k3-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Neugier beginnt mit einer bemerkten Wissenslücke.</h3>
+      <p>Oft werden Dinge erst interessant, wenn wir merken, dass zwischen dem, was wir wissen, und dem, was wir gern verstehen würden, eine Lücke liegt. Genau diese Lücke kann den Wunsch auslösen, weiterzufragen.</p>
+      <div class="curiosity-box"><b>?</b><div><strong>Information-Gap-Idee</strong><br><span>Neugier wächst, wenn uns bewusst wird, dass uns ein Stück Information fehlt.</span></div></div>
+      <blockquote><b>Merksatz:</b> Gute Fragen sind kein Zeichen von Unwissen – sie sind ein Werkzeug, Wissen zu erweitern.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="zweifel">
+  <small>WERKZEUG 02 · ZWEIFEL</small>
+  <h2>Woher weiß ich das?</h2>
+  <article class="experiment" id="evidenceExp">
+    <div class="claim"><strong>Behauptung:</strong> „Menschen lernen besser, wenn der Unterricht zu ihrem persönlichen Lerntyp passt.“</div>
+    <h3>Welcher Beleg würde dich am meisten überzeugen?</h3>
+    <div class="evidence-grid">
+      <button data-rank="1"><small>A · ERFAHRUNG</small>„Bei mir funktioniert Lernen mit Bildern einfach besser.“</button>
+      <button data-rank="2"><small>B · VIDEO</small>Ein erfolgreicher Lerncoach erklärt das Konzept in einem vielgeklickten Video.</button>
+      <button data-rank="3"><small>C · EINZELSTUDIE</small>Eine wissenschaftliche Studie findet einen positiven Effekt.</button>
+      <button data-rank="4"><small>D · FORSCHUNGSÜBERSICHT</small>Viele Studien werden systematisch zusammen ausgewertet.</button>
+    </div>
+    <button class="btn k3-action" disabled>Auflösung anzeigen →</button>
+
+    <div class="k3-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Nicht jede Evidenz trägt gleich viel.</h3>
+      <p>Persönliche Erfahrungen können Hinweise geben, aber sie sind anfällig für Zufälle und Verzerrungen. Einzelstudien sind stärker, können aber ebenfalls irren. Systematische Übersichten über viele Studien liefern meist eine belastbarere Grundlage.</p>
+      <div class="evidence-rank">
+        <div><b>1</b><span>Systematische Forschungsübersicht – viele Studien, transparente Auswahl, Gesamtbild.</span></div>
+        <div><b>2</b><span>Gut gemachte Einzelstudie – kontrolliert, aber nur ein Ausschnitt.</span></div>
+        <div><b>3</b><span>Expertenaussage oder Lernvideo – Qualität hängt stark von Grundlage und Expertise ab.</span></div>
+        <div><b>4</b><span>Persönliche Erfahrung – anschaulich, aber kein verlässlicher Nachweis allgemeiner Wirkung.</span></div>
+      </div>
+      <p>Zweifel bedeutet deshalb nicht: <em>„Ich glaube gar nichts.“</em> Sondern: <strong>Ich passe die Stärke meiner Überzeugung an die Stärke der Evidenz an.</strong></p>
+      <blockquote><b>Intellektuelle Demut:</b> „Das ist meine derzeit beste Einschätzung – aber welche Evidenz könnte zeigen, dass ich falsch liege?“</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="perspektive">
+  <small>WERKZEUG 03 · PERSPEKTIVE</small>
+  <h2>Was sehe ich, wenn ich den Blickwinkel ändere?</h2>
+  <article class="experiment" id="perspectiveExp">
+    <h3>Eine Situation – drei Perspektiven.</h3>
+    <div class="perspective-scene">
+      <div class="perspective-view on" data-view="near">
+        <span class="view-tag">NAHAUFNAHME</span>
+        <p>Du bekommst eine schlechte Klassenarbeit zurück. Es fühlt sich an, als hätte sich die ganze Vorbereitung nicht gelohnt.</p>
+      </div>
+      <div class="perspective-view" data-view="time">
+        <span class="view-tag">ZEITLICH HERAUSGEZOOMT</span>
+        <p>Ein halbes Jahr später ist diese Arbeit nur noch eine von vielen Rückmeldungen. Vielleicht hat sie sogar gezeigt, welche Lernstrategie nicht funktioniert hat.</p>
+      </div>
+      <div class="perspective-view" data-view="other">
+        <span class="view-tag">ANDERE PERSON</span>
+        <p>Eine Freundin sieht nicht nur die Note, sondern dass du dich intensiv vorbereitet hast und nun ziemlich genau weißt, woran du arbeiten kannst.</p>
+      </div>
+    </div>
+    <div class="perspective-tabs">
+      <button class="active" data-target="near">Nahaufnahme</button>
+      <button data-target="time">6 Monate später</button>
+      <button data-target="other">Andere Person</button>
+    </div>
+    <div class="k3-reveal on">
+      <p>Die Fakten ändern sich nicht: Die Arbeit war schlecht. Aber <strong>Bedeutung, Größenverhältnis und Handlungsmöglichkeiten</strong> können sich durch einen anderen Bezugsrahmen verändern.</p>
+      <blockquote><b>Merksatz:</b> Perspektivwechsel verändert nicht automatisch die Fakten – aber oft, was wir in ihnen sehen.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="fantasie">
+  <small>WERKZEUG 04 · FANTASIE</small>
+  <h2>Was könnte sein?</h2>
+  <article class="experiment" id="ideaExp">
+    <h3>Verbinde drei Dinge zu einer neuen Idee.</h3>
+    <p>Deine Stadt soll im Sommer angenehmer und lebenswerter werden. Nutze alle drei Bausteine:</p>
+    <div class="ingredient-row">
+      <div class="ingredient"><b>FAHRRAD</b><span>Mobilität</span></div>
+      <div class="ingredient"><b>BAUM</b><span>Schatten & Natur</span></div>
+      <div class="ingredient"><b>BUSHALTESTELLE</b><span>öffentlicher Raum</span></div>
+    </div>
+    <textarea class="idea-box" placeholder="Meine Idee …"></textarea>
+    <button class="btn idea-go">Idee weiterdenken →</button>
+    <div class="idea-result">
+      <p class="tag">WAS DU GERADE GEMACHT HAST</p>
+      <h3>Du hast Bekanntes neu kombiniert.</h3>
+      <p>Fantasie muss nicht bedeuten, etwas vollständig aus dem Nichts zu erschaffen. Unser Gehirn kann bekannte Elemente, Erfahrungen und Wissensbausteine <strong>neu zusammensetzen</strong> – und daraus Möglichkeiten erzeugen, die noch nicht existieren.</p>
+      <blockquote><b>Merksatz:</b> Fantasie ist oft Rekombination: Bekanntes wird anders verbunden.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="gehirn">
+  <small>KURZER BLICK INS GEHIRN</small>
+  <h2>Wer macht was, wenn wir uns etwas vorstellen?</h2>
+  <p>Es gibt kein einzelnes „Fantasiezentrum“. Verschiedene Netzwerke und Hirnregionen arbeiten zusammen. Tippe die vier Felder an.</p>
+
+  <div class="brain-grid" id="brainGrid">
+    <button class="brain-node active" data-brain="hippocampus"><b>Hippocampus</b><span>Erinnerungsbausteine</span></button>
+    <button class="brain-node" data-brain="dmn"><b>Default Mode Network</b><span>kombinieren & simulieren</span></button>
+    <button class="brain-node" data-brain="salience"><b>Salience Network</b><span>Interessantes hervorheben</span></button>
+    <button class="brain-node" data-brain="pfc"><b>Präfrontale Netzwerke</b><span>prüfen & weiterentwickeln</span></button>
+  </div>
+
+  <div class="brain-detail" id="brainDetail">
+    <strong>Hippocampus:</strong> hilft dabei, episodische Erinnerungen abzurufen und Bausteine früherer Erfahrungen für neue Vorstellungen bereitzustellen.
+  </div>
+
+  <div class="chain">
+    <span>Erinnern</span><i>→</i><span>Kombinieren</span><i>→</i><span>Relevanz</span><i>→</i><span>Prüfen</span>
+  </div>
+
+  <article class="panel">
+    <h3>Die wichtige Pointe</h3>
+    <p><strong>Dass unser Gehirn Wirklichkeit konstruiert, ist nicht nur eine Fehlerquelle.</strong> Genau dieselbe Fähigkeit erlaubt uns, Vergangenes neu zu verbinden, Zukunft zu simulieren und uns etwas vorzustellen, das noch gar nicht existiert.</p>
+  </article>
+
+  <details class="more-brain">
+    <summary>Mehr wissen: weitere beteiligte Regionen</summary>
+    <div class="more-brain-grid">
+      <article><strong>Amygdala</strong><p>bewertet Reize emotional und hilft, besonders bedeutsame oder bedrohliche Informationen hervorzuheben.</p></article>
+      <article><strong>ACC</strong><p>ist unter anderem an Konflikt- und Fehlererkennung sowie kognitiver Kontrolle beteiligt.</p></article>
+      <article><strong>Insula</strong><p>verknüpft Körperzustände mit subjektivem Erleben und spielt bei Interozeption und Salienz eine Rolle.</p></article>
+    </div>
+  </details>
+</section>
+
+<section id="transfer">
+  <small>TRANSFER · WELCHES WERKZEUG HILFT?</small>
+  <h2>Jetzt setzt du die Werkzeuge selbst ein.</h2>
+  <div class="tool-transfer">
+    <article class="scenario">
+      <h3>„Alle in meiner Gruppe sind überzeugt, dass die Antwort stimmt.“</h3>
+      <div class="tool-options">
+        <button data-good="zweifel">Neugier</button><button data-good="zweifel">Zweifel</button><button data-good="perspektive">Perspektive</button><button data-good="fantasie">Fantasie</button>
+      </div>
+      <p class="tool-feedback">Besonders hilfreich sind <strong>Zweifel</strong> („Welche Evidenz haben wir?“) und <strong>Perspektive</strong> („Wie würde jemand außerhalb unserer Gruppe urteilen?“).</p>
+    </article>
+
+    <article class="scenario">
+      <h3>„Bei diesem Problem fällt mir einfach keine Lösung ein.“</h3>
+      <div class="tool-options">
+        <button>Neugier</button><button>Zweifel</button><button>Perspektive</button><button>Fantasie</button>
+      </div>
+      <p class="tool-feedback">Hier können <strong>Neugier</strong> („Welche Information fehlt?“), <strong>Perspektivwechsel</strong> und besonders <strong>Fantasie</strong> neue Möglichkeiten öffnen.</p>
+    </article>
+
+    <article class="scenario">
+      <h3>„Diese Meldung klingt überzeugend – ich würde sie sofort weiterleiten.“</h3>
+      <div class="tool-options">
+        <button>Neugier</button><button>Zweifel</button><button>Perspektive</button><button>Fantasie</button>
+      </div>
+      <p class="tool-feedback"><strong>Zweifel</strong> ist hier zentral: Quelle, Evidenz und mögliche Gegeninformationen prüfen. <strong>Neugier</strong> hilft zu fragen, was noch fehlt.</p>
+    </article>
+  </div>
+</section>
+
+<section class="tool-unlocks">
+  <article class="tool-unlock-card">
+    <b>?</b><div><small>DENKWERKZEUG</small><h3>Neugier</h3><p><strong>Was weiß ich noch nicht?</strong></p></div>
+  </article>
+  <article class="tool-unlock-card">
+    <b>↔</b><div><small>DENKWERKZEUG</small><h3>Perspektive</h3><p><strong>Was sehe ich anders, wenn ich den Blickwinkel ändere?</strong></p></div>
+  </article>
+</section>
+
+<section class="end" id="abschluss">
+  <small>KAPITEL 3 · ABSCHLUSS</small>
+  <h2>Gutes Denken ist mehr als Fehler vermeiden.</h2>
+  <p>Du kannst aktiv Fragen erzeugen, Evidenz prüfen, den Bezugsrahmen wechseln und neue Möglichkeiten entwerfen. Genau diese Fähigkeiten brauchen wir, wenn Probleme komplex werden.</p>
+  <div class="takeaways">
+    <span>Fragen öffnen Wissen</span>
+    <span>Evidenz statt Gewissheit</span>
+    <span>Perspektive verändert Bedeutung</span>
+    <span>Fantasie kombiniert Neues</span>
+    <span>Denken lässt sich trainieren</span>
+  </div>
+  <button class="btn" id="done3">Kapitel 3 als bearbeitet markieren ✓</button>
+  <a class="next disabled" href="#" aria-disabled="true">
+    <small>ALS NÄCHSTES</small>
+    <strong>04 · Ein wirklich großes Problem →</strong>
+    <span>Normalitäts-Bias · psychologische Distanz · Großes-Problem-Paradoxon · Kassandra</span>
+  </a>
+</section>
+</main>
+
+<footer><a href="index.html">← Zur Lernreise</a><span>03 · Besser denken</span></footer>
+
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  // Neugier
+  const cur=document.querySelector("#curiosityExp");
+  if(cur){
+    const chips=[...cur.querySelectorAll(".question-chip")];
+    const counter=cur.querySelector(".question-counter");
+    const action=cur.querySelector(".k3-action");
+    chips.forEach(c=>c.addEventListener("click",()=>{
+      c.classList.toggle("selected");
+      const n=chips.filter(x=>x.classList.contains("selected")).length;
+      counter.textContent=`${n} von mindestens 3 Fragen ausgewählt.`;
+      action.disabled=n<3;
+    }));
+    action.addEventListener("click",()=>{
+      cur.querySelector(".k3-reveal").classList.add("on");
+      action.style.display="none";
+    });
+  }
+
+  // Evidenz
+  const ev=document.querySelector("#evidenceExp");
+  if(ev){
+    const options=[...ev.querySelectorAll(".evidence-grid button")];
+    const action=ev.querySelector(".k3-action");
+    options.forEach(b=>b.addEventListener("click",()=>{
+      options.forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      action.disabled=false;
+    }));
+    action.addEventListener("click",()=>{
+      ev.querySelector(".k3-reveal").classList.add("on");
+      action.style.display="none";
+    });
+  }
+
+  // Perspektive
+  const pexp=document.querySelector("#perspectiveExp");
+  if(pexp){
+    const tabs=[...pexp.querySelectorAll(".perspective-tabs button")];
+    const views=[...pexp.querySelectorAll(".perspective-view")];
+    tabs.forEach(t=>t.addEventListener("click",()=>{
+      tabs.forEach(x=>x.classList.remove("active"));t.classList.add("active");
+      views.forEach(v=>v.classList.toggle("on",v.dataset.view===t.dataset.target));
+    }));
+  }
+
+  // Fantasie
+  const idea=document.querySelector("#ideaExp");
+  if(idea){
+    idea.querySelector(".idea-go").addEventListener("click",()=>{
+      const box=idea.querySelector(".idea-box");
+      if(!box.value.trim()){box.focus();return;}
+      idea.querySelector(".idea-result").classList.add("on");
+    });
+  }
+
+  // Gehirn
+  const brain=document.querySelector("#brainGrid");
+  const detail=document.querySelector("#brainDetail");
+  if(brain && detail){
+    const texts={
+      hippocampus:"<strong>Hippocampus:</strong> hilft dabei, episodische Erinnerungen abzurufen und Bausteine früherer Erfahrungen für neue Vorstellungen bereitzustellen.",
+      dmn:"<strong>Default Mode Network:</strong> ist besonders aktiv, wenn wir nicht eng auf eine äußere Aufgabe fokussiert sind. Es unterstützt unter anderem innere Vorstellungen, autobiografisches Denken und Zukunftssimulationen.",
+      salience:"<strong>Salience Network:</strong> hilft dabei, besonders relevante oder auffällige Informationen hervorzuheben und Aufmerksamkeit zwischen inneren und äußeren Anforderungen umzuschalten.",
+      pfc:"<strong>Präfrontale Netzwerke:</strong> unterstützen zielgerichtetes Denken, Arbeitsgedächtnis, Auswahl und Bewertung. Sie helfen, spontane Ideen zu ordnen und weiterzuentwickeln."
+    };
+    brain.querySelectorAll(".brain-node").forEach(b=>b.addEventListener("click",()=>{
+      brain.querySelectorAll(".brain-node").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      detail.innerHTML=texts[b.dataset.brain];
+    }));
+  }
+
+  // Werkzeugtransfer: mehrere Antworten können sinnvoll sein; Auswahl öffnet Reflexion
+  document.querySelectorAll(".scenario").forEach(s=>{
+    const buttons=[...s.querySelectorAll(".tool-options button")];
+    buttons.forEach(b=>b.addEventListener("click",()=>{
+      buttons.forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      s.querySelector(".tool-feedback").classList.add("on");
+    }));
+  });
+
+  // Fortschritt
+  const done=document.querySelector("#done3");
+  if(done){
+    const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
+    if(current.includes(3))done.textContent="Kapitel 3 ist bearbeitet ✓";
+    done.addEventListener("click",()=>{
+      const set=new Set(JSON.parse(localStorage.getItem("wsdwDone")||"[]"));
+      set.add(3);
+      localStorage.setItem("wsdwDone",JSON.stringify([...set]));
+      done.textContent="Kapitel 3 ist bearbeitet ✓";
+    });
+  }
+});
+</script>
+</body>
+</html>
