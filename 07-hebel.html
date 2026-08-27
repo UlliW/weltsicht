@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>07 · Wo ist der Hebel?</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.k7-nav{position:sticky;top:4.45rem;z-index:9;display:flex;gap:.45rem;overflow:auto;padding:.55rem max(4%,calc((100% - 70rem)/2));background:#0b0e14e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff0d;scrollbar-width:none}
+.k7-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}
+.k7-nav a:hover{color:var(--txt);border-color:var(--a)}
+.k7-label{font-size:clamp(.88rem,1.6vw,1.05rem)}
+.k7-reveal{display:none;margin-top:1.4rem}.k7-reveal.on{display:block}
+.k7-action:disabled{opacity:.38;cursor:not-allowed}
+
+.measure-grid,.cluster-grid,.lever-grid,.adapt-grid,.transfer-grid{display:grid;gap:.7rem;margin:1.2rem 0}
+.measure-grid{grid-template-columns:repeat(3,1fr)}
+.measure-grid button,.cluster-item,.lever-option,.adapt-grid button,.transfer-grid button{
+  padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left
+}
+.measure-grid button,.lever-option,.adapt-grid button,.transfer-grid button{cursor:pointer}
+.measure-grid button:hover,.measure-grid button:focus-visible,.lever-option:hover,.lever-option:focus-visible,.adapt-grid button:hover,.adapt-grid button:focus-visible,.transfer-grid button:hover,.transfer-grid button:focus-visible{outline:none;border-color:var(--a)}
+.measure-grid button.selected,.lever-option.selected,.adapt-grid button.selected,.transfer-grid button.selected{border-color:var(--a);background:#79f2c012}
+
+.system-map{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.4rem 0}
+.system-column{padding:1rem;border:1px solid var(--line);border-radius:1rem;background:var(--s)}
+.system-column>small{display:block;margin-bottom:.4rem}
+.system-column h3{margin:.1rem 0 .7rem}
+.system-column p{color:var(--mut);margin:.3rem 0 .8rem}
+.system-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.system-tags span{padding:.35rem .55rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.78rem}
+.system-arrow{text-align:center;color:var(--a);font-size:1.5rem;margin:.4rem 0}
+
+.cluster-grid{grid-template-columns:repeat(2,1fr)}
+.cluster-item{display:flex;gap:.8rem;align-items:flex-start}
+.cluster-item b{color:var(--a);min-width:1.5rem}
+.cluster-item span{color:var(--mut);font-size:.88rem;display:block;margin-top:.25rem}
+
+.lever-diagram{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin:1.4rem 0}
+.lever-side{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem}
+.lever-side h3{margin:.1rem 0 .6rem}
+.lever-side p{color:var(--mut)}
+.lever-center{display:flex;flex-direction:column;align-items:center;gap:.3rem;color:var(--a)}
+.lever-center b{font-size:2rem}
+.lever-grid{grid-template-columns:repeat(3,1fr)}
+.lever-option small{display:block;margin-bottom:.45rem}
+.lever-option strong{display:block;margin-bottom:.35rem}
+.lever-feedback{display:none;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009;margin-top:1rem}
+.lever-feedback.on{display:block}
+
+.crosscut{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin:1.2rem 0}
+.crosscut article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.crosscut b{display:block;color:var(--a);margin-bottom:.4rem}
+.crosscut p{color:var(--mut);font-size:.88rem;margin:0}
+
+.adapt-grid{grid-template-columns:repeat(2,1fr)}
+.adapt-grid button{min-height:6.5rem}
+.adapt-feedback{display:none;margin-top:1rem;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009}.adapt-feedback.on{display:block}
+
+.transfer-grid{grid-template-columns:repeat(2,1fr)}
+.transfer-grid button{min-height:7rem}
+.transfer-feedback{display:none;margin-top:1rem;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009}.transfer-feedback.on{display:block}
+
+.tool{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center;padding:clamp(1.2rem,3vw,2rem);border:1px solid #79f2c077;border-radius:1.3rem;background:var(--s)}
+.tool>b{display:grid;place-items:center;width:4rem;aspect-ratio:1;border-radius:50%;background:var(--a);color:#07110d;font-size:1.7rem}
+.tool h2{margin:0}.tool p{margin:.2rem 0;color:var(--mut)}
+
+@media(max-width:55rem){
+ .measure-grid,.system-map,.lever-grid,.crosscut{grid-template-columns:1fr 1fr}
+}
+@media(max-width:40rem){
+ .k7-nav{top:4.4rem}
+ .measure-grid,.system-map,.cluster-grid,.lever-grid,.crosscut,.adapt-grid,.transfer-grid{grid-template-columns:1fr}
+ .lever-diagram{grid-template-columns:1fr}
+ .lever-center{transform:rotate(90deg)}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 7 von 8</span><div class="bar"><i style="width:87.5%"></i></div></div>
+</header>
+
+<nav class="k7-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a>
+  <a href="#einzelmassnahmen">Einzelmaßnahmen</a>
+  <a href="#system">System</a>
+  <a href="#wenden">Transformationen</a>
+  <a href="#hebel">Hebelpunkte</a>
+  <a href="#anpassung">Anpassung</a>
+  <a href="#transfer">Transfer</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small class="k7-label">07 · SYSTEME</small>
+  <h1>Wo ist der <em>Hebel?</em></h1>
+  <p>Wenn ein Problem komplex ist, hilft es wenig, nur möglichst viele Einzelmaßnahmen aufzuzählen. Entscheidend ist zu verstehen, <strong>welches System</strong> das Problem erzeugt – und an welchen Stellen Veränderungen besonders viel bewirken können.</p>
+</section>
+
+<section id="einzelmassnahmen">
+  <small>EXPERIMENT 01 · DIE FALSCHE FRAGE?</small>
+  <h2>Welche fünf Maßnahmen sind am wichtigsten?</h2>
+
+  <article class="experiment" id="measureExp">
+    <p>Deutschland soll klimaneutral werden. Wähle spontan fünf Maßnahmen aus, die du für besonders wichtig hältst.</p>
+
+    <div class="measure-grid">
+      <button>Wind- und Solarenergie ausbauen</button>
+      <button>Gebäude besser dämmen</button>
+      <button>Wärmepumpen einsetzen</button>
+      <button>ÖPNV und Bahn ausbauen</button>
+      <button>Elektromobilität ausbauen</button>
+      <button>Industrieprozesse klimaneutral machen</button>
+      <button>Kreislaufwirtschaft stärken</button>
+      <button>Weniger Lebensmittel verschwenden</button>
+      <button>Moore wiedervernässen</button>
+      <button>Wälder schützen</button>
+      <button>CO₂-Preis und Emissionshandel</button>
+      <button>Stromnetze und Speicher ausbauen</button>
+    </div>
+
+    <button class="btn k7-action" disabled>Weiter →</button>
+
+    <div class="k7-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Vielleicht ist „Welche fünf?“ schon die falsche Frage.</h3>
+      <p>Viele dieser Maßnahmen sind sinnvoll. Aber sie wirken auf <strong>unterschiedliche Teile desselben Systems</strong>. Wer nur einzelne Maßnahmen gegeneinander ausspielt, übersieht leicht, dass Klimaneutralität mehrere große Bereiche gleichzeitig verändern muss.</p>
+      <blockquote><b>Neue Frage:</b> Welche Systeme erzeugen die Emissionen – und wie müssen sie sich verändern?</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="system">
+  <small>SYSTEMDENKEN</small>
+  <h2>Von der Maßnahmenliste zum Systemmodell.</h2>
+
+  <div class="system-map">
+    <article class="system-column">
+      <small>01 · ENERGIE</small>
+      <h3>Woher kommt unsere Energie?</h3>
+      <p>Fossile Energieträger treiben Stromerzeugung, Wärme und Verkehr an.</p>
+      <div class="system-tags"><span>Strom</span><span>Wärme</span><span>Mobilität</span><span>Netze</span><span>Speicher</span></div>
+    </article>
+
+    <article class="system-column">
+      <small>02 · PRODUKTION & KONSUM</small>
+      <h3>Wie stellen wir Dinge her und nutzen Ressourcen?</h3>
+      <p>Industrie, Materialien, Landwirtschaft und Konsum erzeugen Emissionen und Stoffströme.</p>
+      <div class="system-tags"><span>Industrie</span><span>Kreislauf</span><span>Materialien</span><span>Ernährung</span></div>
+    </article>
+
+    <article class="system-column">
+      <small>03 · NATUR & LANDNUTZUNG</small>
+      <h3>Wie nutzen wir Böden und Ökosysteme?</h3>
+      <p>Wälder, Moore und Böden können Kohlenstoff speichern – oder durch Nutzung freisetzen.</p>
+      <div class="system-tags"><span>Wälder</span><span>Moore</span><span>Böden</span><span>Renaturierung</span></div>
+    </article>
+  </div>
+
+  <div class="system-arrow">↓</div>
+
+  <article class="panel">
+    <h3>Systemdenken heißt: Beziehungen sehen.</h3>
+    <p>Ein Elektroauto braucht Strom. Eine Wärmepumpe ebenfalls. Mehr erneuerbarer Strom braucht Netze und Speicher. Industrie benötigt Energie, Materialien und Infrastruktur. Landwirtschaft beeinflusst Böden, Biodiversität und Treibhausgase. <strong>Einzelmaßnahmen hängen voneinander ab.</strong></p>
+  </article>
+</section>
+
+<section id="wenden">
+  <small>DREI GROSSE TRANSFORMATIONEN</small>
+  <h2>Aus vielen Maßnahmen werden drei Richtungen.</h2>
+
+  <div class="cluster-grid">
+    <article class="cluster-item"><b>1</b><div><strong>Energiewende</strong><span>Weg von fossilen Energieträgern: erneuerbarer Strom, Wärmewende, Mobilitätswende, Elektrifizierung, Netze und Speicher.</span></div></article>
+    <article class="cluster-item"><b>2</b><div><strong>Produktions- & Konsumwende</strong><span>Weg von linearen Stoffströmen: klimaneutrale Industrie, Materialeffizienz, Kreislaufwirtschaft, langlebige Produkte und Ernährungswende.</span></div></article>
+    <article class="cluster-item"><b>3</b><div><strong>Natur- & Landnutzungswende</strong><span>Ökosysteme und natürliche Kohlenstoffspeicher erhalten und wiederherstellen: Wälder, Moore, Böden und nachhaltige Landnutzung.</span></div></article>
+    <article class="cluster-item"><b>↔</b><div><strong>Querschnitt</strong><span>Politische und gesellschaftliche Rahmenbedingungen beeinflussen alle drei Bereiche: Preise, Regeln, Infrastruktur, Forschung und Akzeptanz.</span></div></article>
+  </div>
+
+  <blockquote><b>Merksatz:</b> Klimaneutralität ist keine einzelne Technologie – sie ist der Umbau mehrerer miteinander verbundener Systeme.</blockquote>
+</section>
+
+<section id="hebel">
+  <small>EXPERIMENT 02 · LEVERAGE POINTS</small>
+  <h2>Wo kann eine Veränderung besonders viel bewirken?</h2>
+
+  <article class="experiment" id="leverExp">
+    <div class="lever-diagram">
+      <article class="lever-side">
+        <small>EINZELFALL</small>
+        <h3>Ein Haushalt</h3>
+        <p>Eine Familie entscheidet sich freiwillig für eine Wärmepumpe.</p>
+      </article>
+      <div class="lever-center"><b>↔</b><span>Welche Ebene wirkt breiter?</span></div>
+      <article class="lever-side">
+        <small>RAHMENBEDINGUNG</small>
+        <h3>Viele Haushalte</h3>
+        <p>Stromnetz, Preise, Förderung, Fachkräfte und Gebäudestandards machen den Umstieg für Millionen Haushalte einfacher.</p>
+      </article>
+    </div>
+
+    <h3>Welche Veränderung ist eher ein systemischer Hebel?</h3>
+    <div class="lever-grid">
+      <button class="lever-option" data-good="small"><small>A</small><strong>Ein einzelnes besonders sparsames Auto</strong><br>reduziert den Verbrauch dieses Fahrzeugs.</button>
+      <button class="lever-option" data-good="medium"><small>B</small><strong>Viele neue Ladesäulen</strong><br>erleichtern den Umstieg auf Elektromobilität.</button>
+      <button class="lever-option" data-good="large"><small>C</small><strong>Ein Regel- und Preissystem, das emissionsarme Lösungen dauerhaft attraktiver macht</strong><br>verändert Entscheidungen vieler Akteure gleichzeitig.</button>
+    </div>
+
+    <div class="lever-feedback" id="leverFeedback"></div>
+  </article>
+
+  <article class="panel">
+    <h3>Leverage Points – Hebelpunkte</h3>
+    <p>Die Systemforscherin <strong>Donella Meadows</strong> bezeichnete Stellen in komplexen Systemen als <strong>Leverage Points</strong>, an denen gezielte Veränderungen besonders große Wirkungen entfalten können. Nicht jeder Hebel ist gleich stark: Änderungen an <strong>Regeln, Informationsflüssen, Anreizen oder Zielen</strong> können ein System stärker verändern als eine einzelne technische Verbesserung.</p>
+    <blockquote><b>Prüffrage:</b> Verändert diese Maßnahme nur einen Einzelfall – oder verändert sie die Bedingungen, unter denen viele Menschen entscheiden?</blockquote>
+  </article>
+</section>
+
+<section>
+  <small>QUERSCHNITT · RAHMENBEDINGUNGEN</small>
+  <h2>Viele Hebel liegen nicht bei einzelnen Menschen.</h2>
+
+  <div class="crosscut">
+    <article><b>Preise</b><p>CO₂-Bepreisung und Emissionshandel verändern wirtschaftliche Anreize.</p></article>
+    <article><b>Regeln</b><p>Standards können festlegen, welche Technologien oder Produkte langfristig eingesetzt werden.</p></article>
+    <article><b>Infrastruktur</b><p>Netze, Bahn, Radwege oder Wärmenetze bestimmen, welche Entscheidungen überhaupt praktikabel sind.</p></article>
+    <article><b>Innovation</b><p>Forschung und Investitionen können neue technische und wirtschaftliche Möglichkeiten schaffen.</p></article>
+  </div>
+
+  <blockquote><b>Wichtig:</b> Individuelles Verhalten und politische Rahmenbedingungen sind kein Entweder-oder. Menschen entscheiden innerhalb von Strukturen – und Menschen können diese Strukturen politisch mitgestalten.</blockquote>
+</section>
+
+<section id="anpassung">
+  <small>KLIMASCHUTZ ≠ KLIMAANPASSUNG</small>
+  <h2>Zwei Aufgaben gleichzeitig.</h2>
+
+  <article class="experiment" id="adaptExp">
+    <p>Ordne spontan ein: Welche Maßnahmen bekämpfen vor allem die <strong>Ursachen</strong> der Klimakrise – und welche verringern vor allem die <strong>Folgen</strong>?</p>
+
+    <div class="adapt-grid">
+      <button data-kind="mitigation">Kohlekraftwerke durch erneuerbare Energien ersetzen</button>
+      <button data-kind="adaptation">Mehr Schatten, Bäume und Trinkbrunnen in einer heißen Innenstadt</button>
+      <button data-kind="mitigation">Moore wiedervernässen und dadurch CO₂-Emissionen verringern</button>
+      <button data-kind="adaptation">Deiche und Rückhalteflächen für stärkere Hochwasser ausbauen</button>
+    </div>
+
+    <div class="adapt-feedback" id="adaptFeedback">
+      <h3>Klimaschutz und Anpassung ergänzen sich.</h3>
+      <p><strong>Mitigation / Klimaschutz</strong> begrenzt die Ursachen – vor allem Treibhausgasemissionen. <strong>Adaptation / Klimaanpassung</strong> reduziert Schäden durch Folgen, die bereits auftreten oder nicht mehr vollständig vermeidbar sind. Beides wird gebraucht.</p>
+    </div>
+  </article>
+</section>
+
+<section id="transfer">
+  <small>TRANSFER · WO WÜRDEST DU ANSETZEN?</small>
+  <h2>Ein Problem – mehrere Ebenen.</h2>
+
+  <article class="experiment" id="transferExp">
+    <p>In einer Stadt fahren sehr viele Menschen kurze Wege mit dem Auto. Welche Maßnahme verändert am stärksten die <strong>Rahmenbedingungen</strong> des Systems?</p>
+
+    <div class="transfer-grid">
+      <button data-level="individual">Eine Kampagne: „Fahr öfter Fahrrad!“</button>
+      <button data-level="individual">Kostenlose Fahrradhelme für 500 Einwohner</button>
+      <button data-level="system">Ein durchgängiges, sicheres Radwegenetz plus gute ÖPNV-Anbindung und angepasste Parkraumpolitik</button>
+      <button data-level="individual">Ein Wettbewerb, welcher Stadtteil die meisten Fahrradkilometer sammelt</button>
+    </div>
+
+    <div class="transfer-feedback" id="transferFeedback"></div>
+  </article>
+</section>
+
+<section class="tool">
+  <b>↗</b>
+  <div>
+    <small>DENKWERKZEUG FREIGESCHALTET</small>
+    <h2>Hebel</h2>
+    <p><strong>Wo verändert eine gezielte Maßnahme nicht nur einen Einzelfall, sondern die Bedingungen des ganzen Systems?</strong></p>
+  </div>
+</section>
+
+<section class="end" id="abschluss">
+  <small>KAPITEL 7 · ABSCHLUSS</small>
+  <h2>Gute Lösungen verändern nicht nur Verhalten – sondern Möglichkeiten.</h2>
+  <p>Systemdenken hilft, Einzelmaßnahmen nicht isoliert zu betrachten. Hebelpunkte helfen zu fragen, an welchen Stellen Regeln, Infrastruktur, Preise oder Ziele so verändert werden können, dass viele weitere Veränderungen leichter werden.</p>
+
+  <div class="takeaways">
+    <span>System statt Maßnahmenliste</span>
+    <span>Drei Transformationen</span>
+    <span>Rahmenbedingungen wirken</span>
+    <span>Hebelpunkte suchen</span>
+    <span>Klimaschutz + Anpassung</span>
+  </div>
+
+  <button class="btn" id="done7">Kapitel 7 als bearbeitet markieren ✓</button>
+
+  <a class="next disabled" href="#" aria-disabled="true">
+    <small>ALS NÄCHSTES</small>
+    <strong>08 · Die Welt, die noch nicht existiert →</strong>
+    <span>Fantasie · Narrativ · Vision · Handlungsfähigkeit</span>
+  </a>
+</section>
+</main>
+
+<footer><a href="index.html">← Zur Lernreise</a><span>07 · Systeme</span></footer>
+
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  // Maßnahmen-Auswahl: genau fünf
+  const measure=document.querySelector("#measureExp");
+  if(measure){
+    const bs=[...measure.querySelectorAll(".measure-grid button")];
+    const action=measure.querySelector(".k7-action");
+    const sync=()=>{action.disabled=bs.filter(x=>x.classList.contains("selected")).length!==5};
+    bs.forEach(b=>b.addEventListener("click",()=>{
+      if(!b.classList.contains("selected") && bs.filter(x=>x.classList.contains("selected")).length>=5)return;
+      b.classList.toggle("selected");sync();
+    }));
+    action.addEventListener("click",()=>{
+      measure.querySelector(".k7-reveal").classList.add("on");
+      action.style.display="none";
+    });
+  }
+
+  // Hebelpunkte
+  const lever=document.querySelector("#leverExp");
+  if(lever){
+    const feedback=lever.querySelector("#leverFeedback");
+    lever.querySelectorAll(".lever-option").forEach(b=>b.addEventListener("click",()=>{
+      lever.querySelectorAll(".lever-option").forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      const messages={
+        small:"A wirkt direkt, aber nur auf einen einzelnen Fall. Das ist nützlich – jedoch kein besonders starker systemischer Hebel.",
+        medium:"B verändert Infrastruktur und damit die Möglichkeiten vieler Menschen. Das ist bereits ein deutlich stärkerer Hebel.",
+        large:"C greift besonders tief ins System ein: Regeln und Anreize beeinflussen viele Entscheidungen gleichzeitig und können weitere Veränderungen auslösen."
+      };
+      feedback.textContent=messages[b.dataset.good];
+      feedback.classList.add("on");
+    }));
+  }
+
+  // Klimaschutz vs Anpassung
+  const adapt=document.querySelector("#adaptExp");
+  if(adapt){
+    const buttons=[...adapt.querySelectorAll(".adapt-grid button")];
+    buttons.forEach(b=>b.addEventListener("click",()=>{
+      b.classList.toggle("selected");
+      if(buttons.every(x=>x.classList.contains("selected"))){
+        adapt.querySelector("#adaptFeedback").classList.add("on");
+      }
+    }));
+  }
+
+  // Transfer
+  const transfer=document.querySelector("#transferExp");
+  if(transfer){
+    const feedback=transfer.querySelector("#transferFeedback");
+    transfer.querySelectorAll(".transfer-grid button").forEach(b=>b.addEventListener("click",()=>{
+      transfer.querySelectorAll(".transfer-grid button").forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      if(b.dataset.level==="system"){
+        feedback.innerHTML="<strong>Genau.</strong> Ein zusammenhängendes Radwegenetz, guter ÖPNV und Parkraumpolitik verändern gleichzeitig Sicherheit, Komfort, Zeitaufwand und Attraktivität verschiedener Verkehrsmittel. Damit ändern sich die Bedingungen für sehr viele Entscheidungen.";
+      }else{
+        feedback.innerHTML="<strong>Diese Maßnahme kann helfen,</strong> verändert aber vor allem einzelne Entscheidungen. Ein stärkerer Hebel würde die Rahmenbedingungen so verändern, dass klimafreundliche Mobilität für viele Menschen einfacher und attraktiver wird.";
+      }
+      feedback.classList.add("on");
+    }));
+  }
+
+  const done=document.querySelector("#done7");
+  if(done){
+    const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
+    if(current.includes(7))done.textContent="Kapitel 7 ist bearbeitet ✓";
+    done.addEventListener("click",()=>{
+      const set=new Set(JSON.parse(localStorage.getItem("wsdwDone")||"[]"));
+      set.add(7);localStorage.setItem("wsdwDone",JSON.stringify([...set]));
+      done.textContent="Kapitel 7 ist bearbeitet ✓";
+    });
+  }
+});
+</script>
+</body>
+</html>
