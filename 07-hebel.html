@@ -75,6 +75,18 @@
  .lever-diagram{grid-template-columns:1fr}
  .lever-center{transform:rotate(90deg)}
 }
+
+.adapt-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin:1.2rem 0}
+.adapt-card{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.adapt-card h3{margin:.1rem 0 .8rem;font-size:1.05rem}
+.adapt-choice{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.adapt-choice button{padding:.7rem;background:#111722;border:1px solid var(--line);border-radius:.75rem;color:var(--txt);font:inherit;cursor:pointer}
+.adapt-choice button:hover,.adapt-choice button:focus-visible{outline:none;border-color:var(--a)}
+.adapt-choice button.selected{border-color:var(--a);background:#79f2c012}
+.adapt-result{min-height:1.5rem;margin:.7rem 0 0;color:var(--mut);font-size:.88rem}
+.adapt-result.correct{color:var(--a)}
+@media(max-width:40rem){.adapt-cards{grid-template-columns:1fr}}
+
 </style>
 </head>
 
@@ -238,18 +250,49 @@
   <h2>Zwei Aufgaben gleichzeitig.</h2>
 
   <article class="experiment" id="adaptExp">
-    <p>Ordne spontan ein: Welche Maßnahmen bekämpfen vor allem die <strong>Ursachen</strong> der Klimakrise – und welche verringern vor allem die <strong>Folgen</strong>?</p>
+    <p>Ordne <strong>jede der vier Maßnahmen</strong> ein. Tippe dazu zuerst auf eine Maßnahme und entscheide anschließend: Geht es hier vor allem um <strong>Klimaschutz</strong> – also die Ursachen begrenzen – oder um <strong>Klimaanpassung</strong> – also Folgen abmildern?</p>
 
-    <div class="adapt-grid">
-      <button data-kind="mitigation">Kohlekraftwerke durch erneuerbare Energien ersetzen</button>
-      <button data-kind="adaptation">Mehr Schatten, Bäume und Trinkbrunnen in einer heißen Innenstadt</button>
-      <button data-kind="mitigation">Moore wiedervernässen und dadurch CO₂-Emissionen verringern</button>
-      <button data-kind="adaptation">Deiche und Rückhalteflächen für stärkere Hochwasser ausbauen</button>
+    <div class="adapt-cards">
+      <article class="adapt-card" data-correct="mitigation">
+        <h3>Kohlekraftwerke durch erneuerbare Energien ersetzen</h3>
+        <div class="adapt-choice">
+          <button data-choice="mitigation">Klimaschutz</button>
+          <button data-choice="adaptation">Klimaanpassung</button>
+        </div>
+        <p class="adapt-result"></p>
+      </article>
+
+      <article class="adapt-card" data-correct="adaptation">
+        <h3>Mehr Schatten, Bäume und Trinkbrunnen in einer heißen Innenstadt</h3>
+        <div class="adapt-choice">
+          <button data-choice="mitigation">Klimaschutz</button>
+          <button data-choice="adaptation">Klimaanpassung</button>
+        </div>
+        <p class="adapt-result"></p>
+      </article>
+
+      <article class="adapt-card" data-correct="mitigation">
+        <h3>Moore wiedervernässen und dadurch CO₂-Emissionen verringern</h3>
+        <div class="adapt-choice">
+          <button data-choice="mitigation">Klimaschutz</button>
+          <button data-choice="adaptation">Klimaanpassung</button>
+        </div>
+        <p class="adapt-result"></p>
+      </article>
+
+      <article class="adapt-card" data-correct="adaptation">
+        <h3>Deiche und Rückhalteflächen für stärkere Hochwasser ausbauen</h3>
+        <div class="adapt-choice">
+          <button data-choice="mitigation">Klimaschutz</button>
+          <button data-choice="adaptation">Klimaanpassung</button>
+        </div>
+        <p class="adapt-result"></p>
+      </article>
     </div>
 
     <div class="adapt-feedback" id="adaptFeedback">
       <h3>Klimaschutz und Anpassung ergänzen sich.</h3>
-      <p><strong>Mitigation / Klimaschutz</strong> begrenzt die Ursachen – vor allem Treibhausgasemissionen. <strong>Adaptation / Klimaanpassung</strong> reduziert Schäden durch Folgen, die bereits auftreten oder nicht mehr vollständig vermeidbar sind. Beides wird gebraucht.</p>
+      <p><strong>Mitigation / Klimaschutz</strong> begrenzt die Ursachen – vor allem Treibhausgasemissionen. <strong>Adaptation / Klimaanpassung</strong> reduziert Schäden durch Folgen, die bereits auftreten oder nicht mehr vollständig vermeidbar sind. Manche Maßnahmen können in der Realität sogar beides zugleich leisten – hier ordnen wir jeweils nach der wichtigsten Funktion.</p>
     </div>
   </article>
 </section>
@@ -262,10 +305,10 @@
     <p>In einer Stadt fahren sehr viele Menschen kurze Wege mit dem Auto. Welche Maßnahme verändert am stärksten die <strong>Rahmenbedingungen</strong> des Systems?</p>
 
     <div class="transfer-grid">
-      <button data-level="individual">Eine Kampagne: „Fahr öfter Fahrrad!“</button>
-      <button data-level="individual">Kostenlose Fahrradhelme für 500 Einwohner</button>
-      <button data-level="system">Ein durchgängiges, sicheres Radwegenetz plus gute ÖPNV-Anbindung und angepasste Parkraumpolitik</button>
-      <button data-level="individual">Ein Wettbewerb, welcher Stadtteil die meisten Fahrradkilometer sammelt</button>
+      <button data-level="individual">Eine mehrjährige Informationskampagne mit Schulen, Betrieben und Vereinen, die über Gesundheits- und Klimavorteile des Radfahrens informiert und regelmäßig zu freiwilligen Aktionstagen motiviert.</button>
+      <button data-level="individual">Ein städtisches Förderprogramm, das Zuschüsse für Fahrräder und E-Bikes, kostenlose Sicherheitstrainings und vergünstigte Helme für mehrere Tausend Einwohner anbietet.</button>
+      <button data-level="system">Ein durchgängiges, sicheres Radwegenetz, dichter ÖPNV, gute Umsteigepunkte und eine Parkraumpolitik, die kurze Autofahrten weniger attraktiv macht.</button>
+      <button data-level="individual">Ein dauerhaftes Bonusprogramm, bei dem Bürger für mit Rad oder ÖPNV zurückgelegte Wege Punkte sammeln und diese bei lokalen Geschäften oder Freizeiteinrichtungen einlösen können.</button>
     </div>
 
     <div class="transfer-feedback" id="transferFeedback"></div>
@@ -346,13 +389,26 @@ document.addEventListener("DOMContentLoaded",()=>{
   // Klimaschutz vs Anpassung
   const adapt=document.querySelector("#adaptExp");
   if(adapt){
-    const buttons=[...adapt.querySelectorAll(".adapt-grid button")];
-    buttons.forEach(b=>b.addEventListener("click",()=>{
-      b.classList.toggle("selected");
-      if(buttons.every(x=>x.classList.contains("selected"))){
-        adapt.querySelector("#adaptFeedback").classList.add("on");
-      }
-    }));
+    const cards=[...adapt.querySelectorAll(".adapt-card")];
+    cards.forEach(card=>{
+      const buttons=[...card.querySelectorAll(".adapt-choice button")];
+      const result=card.querySelector(".adapt-result");
+      buttons.forEach(b=>b.addEventListener("click",()=>{
+        buttons.forEach(x=>x.classList.remove("selected"));
+        b.classList.add("selected");
+        card.dataset.answered="yes";
+        if(b.dataset.choice===card.dataset.correct){
+          result.textContent="Passt – das ist hier die wichtigste Funktion.";
+          result.className="adapt-result correct";
+        }else{
+          result.textContent="Nicht ganz: Hier steht vor allem die andere Funktion im Vordergrund.";
+          result.className="adapt-result";
+        }
+        if(cards.every(c=>c.dataset.answered==="yes")){
+          adapt.querySelector("#adaptFeedback").classList.add("on");
+        }
+      }));
+    });
   }
 
   // Transfer
