@@ -67,7 +67,18 @@
 <button class="boundary-btn" data-b="novel"><b>09 · Neue Stoffe</b><span>Chemikalien & Materialien</span></button>
 </div>
 <div class="boundary-detail" id="boundaryDetail"><strong>Klimawandel:</strong> Treibhausgase verändern den Energiehaushalt der Erde und damit Temperaturen, Niederschläge, Eis und Meeresspiegel.</div>
-<article class="panel"><h3>Eine Grenze ist keine Klippe.</h3><p>Das Überschreiten einer planetaren Grenze bedeutet nicht, dass am nächsten Tag ein globaler Kollaps eintritt. Es bedeutet, dass das Risiko größerer und möglicherweise schwer umkehrbarer Veränderungen des Erdsystems zunimmt.</p></article>
+<article class="panel">
+  <h3>7 von 9 Grenzen sind überschritten.</h3>
+  <p>Nach dem <strong>Planetary Health Check 2025</strong> liegen inzwischen sieben der neun planetaren Grenzen außerhalb des sicheren Bereichs: <strong>Klimawandel, Integrität der Biosphäre, Landnutzungswandel, Süßwasserveränderungen, Stickstoff- und Phosphorkreisläufe, neuartige Substanzen sowie Ozeanversauerung</strong>. Im sicheren Bereich liegen derzeit noch <strong>stratosphärischer Ozonabbau</strong> und die globale <strong>Aerosolbelastung</strong>.</p>
+  <p>Das Überschreiten einer planetaren Grenze bedeutet dabei nicht, dass am nächsten Tag ein globaler Kollaps eintritt. Es bedeutet, dass das Risiko größerer und möglicherweise schwer umkehrbarer Veränderungen des Erdsystems zunimmt.</p>
+</article>
+
+<article class="panel">
+  <h3>Aber: Grenzen können auch wieder stabilisiert werden.</h3>
+  <p><strong>Ozonschicht:</strong> Hier gibt es ein starkes positives Beispiel. Mit dem <strong>Montrealer Protokoll von 1987</strong> einigten sich Staaten weltweit darauf, ozonschädigende Stoffe schrittweise abzuschaffen. Fast alle kontrollierten Stoffe wurden inzwischen aus dem Verkehr gezogen, und die Ozonschicht befindet sich auf einem langfristigen Erholungspfad.</p>
+  <p><strong>Biosphäre:</strong> Beim Arten- und Ökosystemverlust ist die Grenze weiterhin deutlich überschritten. Mit dem <strong>Kunming-Montreal Global Biodiversity Framework von 2022</strong> gibt es aber erstmals einen gemeinsamen globalen Rahmen mit 23 Zielen bis 2030 – darunter das bekannte <strong>30×30-Ziel</strong>: mindestens 30&nbsp;% der Land- und Meeresflächen sollen wirksam erhalten bzw. geschützt werden.</p>
+  <blockquote><b>Die wichtige Botschaft:</b> Planetare Grenzen zeigen nicht nur, wo Risiken wachsen. Sie zeigen auch, wo gemeinsames politisches Handeln ansetzen kann – und das Ozonbeispiel zeigt, dass Umsteuern tatsächlich möglich ist.</blockquote>
+</article>
 </section>
 
 <section id="overview"><small>OVERVIEW-EFFEKT · UNSERE ERWEITERTE BEDEUTUNG</small><h2>Was verändert sich, wenn wir weit genug herauszoomen?</h2>
@@ -101,12 +112,12 @@ document.addEventListener("DOMContentLoaded",()=>{
  const grid=document.querySelector("#boundaryGrid"),detail=document.querySelector("#boundaryDetail");
  if(grid&&detail){const t={
  climate:"<strong>Klimawandel:</strong> Treibhausgase verändern den Energiehaushalt der Erde und damit Temperaturen, Niederschläge, Eis und Meeresspiegel.",
- biosphere:"<strong>Integrität der Biosphäre:</strong> Arten, Populationen und funktionierende Ökosysteme sichern zentrale Leistungen des Erdsystems.",
+ biosphere:"<strong>Integrität der Biosphäre:</strong> Arten, Populationen und funktionierende Ökosysteme sichern zentrale Leistungen des Erdsystems. Diese Grenze ist überschritten. Mit dem Kunming-Montreal Global Biodiversity Framework von 2022 gibt es einen internationalen Rahmen, der den Verlust der Biodiversität bis 2030 bremsen und umkehren soll.",
  land:"<strong>Landnutzungswandel:</strong> Wälder und andere natürliche Flächen werden in Acker-, Weide- oder Siedlungsflächen umgewandelt.",
  fresh:"<strong>Veränderung des Süßwassers:</strong> Entnahme und Veränderung von blauem Wasser sowie Bodenfeuchte beeinflussen Ökosysteme und Stoffkreisläufe.",
  nutrients:"<strong>Biogeochemische Flüsse:</strong> Zu viel reaktiver Stickstoff und Phosphor verändert Gewässer, Böden und Ökosysteme.",
  ocean:"<strong>Ozeanversauerung:</strong> Zusätzliches CO₂ löst sich im Meer und verändert dessen Chemie – mit Folgen besonders für kalkbildende Organismen.",
- ozone:"<strong>Stratosphärischer Ozonabbau:</strong> Die Ozonschicht schützt Leben vor schädlicher UV-Strahlung.",
+ ozone:"<strong>Stratosphärischer Ozonabbau:</strong> Die Ozonschicht schützt Leben vor schädlicher UV-Strahlung. Diese planetare Grenze liegt derzeit im sicheren Bereich – ein wichtiges Beispiel dafür, dass internationale Umweltpolitik wirken kann: Das Montrealer Protokoll von 1987 führte zum weltweiten Ausstieg aus vielen ozonschädigenden Stoffen.",
  aerosol:"<strong>Atmosphärische Aerosole:</strong> Feine Partikel beeinflussen Gesundheit, Wolken, Niederschläge und Klima; ihre Wirkung ist regional sehr unterschiedlich.",
  novel:"<strong>Neue Substanzen:</strong> Synthetische Chemikalien, Kunststoffe und andere vom Menschen freigesetzte Stoffe können sich schneller verbreiten, als ihre Risiken bewertet werden."
  };grid.querySelectorAll(".boundary-btn").forEach(b=>b.addEventListener("click",()=>{grid.querySelectorAll(".boundary-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");detail.innerHTML=t[b.dataset.b]}))}
