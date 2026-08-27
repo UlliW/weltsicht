@@ -10,7 +10,7 @@
 .k5-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}.k5-nav a:hover{color:var(--txt);border-color:var(--a)}
 .k5-label{font-size:clamp(.88rem,1.6vw,1.05rem)}.k5-reveal{display:none;margin-top:1.4rem}.k5-reveal.on{display:block}.k5-action:disabled{opacity:.38;cursor:not-allowed}
 .zoom-scene{padding:clamp(1rem,3vw,1.5rem);border:1px solid var(--line);border-radius:1rem;background:var(--s2);margin:1rem 0}.zoom-scene:not(.on){display:none}
-.zoom-scene small{color:var(--a)}.zoom-controls{display:flex;gap:.6rem;flex-wrap:wrap}.zoom-controls button,.rank-options button,.boundary-btn,.overview-btn{padding:.75rem .9rem;background:var(--s2);border:1px solid var(--line);border-radius:.8rem;color:var(--txt);font:inherit;cursor:pointer}.zoom-controls button:hover,.rank-options button:hover,.boundary-btn:hover,.overview-btn:hover{border-color:var(--a)}
+.zoom-scene small{color:var(--a)}.zoom-controls{display:flex;gap:.6rem;flex-wrap:wrap}.zoom-controls button,.rank-options button,.boundary-btn,.overview-btn{padding:.75rem .9rem;background:var(--s2);border:1px solid var(--line);border-radius:.8rem;color:var(--txt);font:inherit;cursor:pointer}.zoom-controls button:hover,.rank-options button:hover,.boundary-btn:hover,.overview-btn:hover{border-color:var(--a)}.overview-btn.selected{border-color:var(--a);background:#79f2c012;color:var(--txt)}
 .progress-bars{display:grid;gap:1rem;margin:1.3rem 0}.progress-item{display:grid;grid-template-columns:minmax(8rem,1.2fr) 3fr auto;gap:.8rem;align-items:center}.track{height:.55rem;background:#222a38;border-radius:99rem;overflow:hidden}.track i{display:block;height:100%;width:var(--w);background:var(--a)}
 .progress-item b{color:var(--a)}.progress-item span{color:var(--mut);font-size:.88rem}
 .rank-options{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1rem 0}.rank-options button.selected{border-color:var(--a);background:#79f2c012}
@@ -108,7 +108,21 @@
 document.addEventListener("DOMContentLoaded",()=>{
  const zoom=document.querySelector("#zoomExp"); if(zoom){zoom.querySelectorAll(".zoom-controls button").forEach(b=>b.addEventListener("click",()=>{zoom.querySelectorAll(".zoom-scene").forEach(s=>s.classList.toggle("on",s.dataset.z===b.dataset.go))}))}
  function single(expSel,optSel){const e=document.querySelector(expSel);if(!e)return;const bs=[...e.querySelectorAll(optSel)],a=e.querySelector(".k5-action"),r=e.querySelector(".k5-reveal");bs.forEach(b=>b.addEventListener("click",()=>{bs.forEach(x=>x.classList.remove("selected"));b.classList.add("selected");a.disabled=false}));a.addEventListener("click",()=>{r.classList.add("on");a.style.display="none"})}
- single("#happyExp",".rank-options button"); single("#bothExp",".overview-btn");
+ single("#happyExp",".rank-options button");
+ const both=document.querySelector("#bothExp");
+ if(both){
+   const bs=[...both.querySelectorAll(".overview-btn")];
+   const action=both.querySelector(".k5-action");
+   const reveal=both.querySelector(".k5-reveal");
+   bs.forEach(b=>b.addEventListener("click",()=>{
+     b.classList.toggle("selected");
+     action.disabled=bs.filter(x=>x.classList.contains("selected")).length<2;
+   }));
+   action.addEventListener("click",()=>{
+     reveal.classList.add("on");
+     action.style.display="none";
+   });
+ }
  const grid=document.querySelector("#boundaryGrid"),detail=document.querySelector("#boundaryDetail");
  if(grid&&detail){const t={
  climate:"<strong>Klimawandel:</strong> Durch die Verbrennung von Kohle, Öl und Gas steigt die Konzentration von Treibhausgasen wie CO₂. Dadurch bleibt mehr Wärme im Erdsystem. Die Folgen reichen von steigenden Durchschnittstemperaturen über häufigere und intensivere Hitzewellen bis zu schmelzendem Eis und steigendem Meeresspiegel. Die planetare Grenze ist überschritten.",
