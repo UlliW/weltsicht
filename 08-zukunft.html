@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>08 · Die Welt, die noch nicht existiert</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.k8-nav{position:sticky;top:4.45rem;z-index:9;display:flex;gap:.45rem;overflow:auto;padding:.55rem max(4%,calc((100% - 70rem)/2));background:#0b0e14e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff0d;scrollbar-width:none}
+.k8-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}
+.k8-nav a:hover{color:var(--txt);border-color:var(--a)}
+.k8-label{font-size:clamp(.88rem,1.6vw,1.05rem)}
+.k8-reveal{display:none;margin-top:1.4rem}.k8-reveal.on{display:block}.k8-action:disabled{opacity:.38;cursor:not-allowed}
+
+.future-grid,.vision-grid,.backcast-grid,.people-grid,.final-tools{display:grid;gap:.8rem;margin:1.2rem 0}
+.future-grid{grid-template-columns:repeat(3,1fr)}
+.future-grid button,.vision-grid button,.backcast-grid button{
+  padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer
+}
+.future-grid button:hover,.future-grid button:focus-visible,.vision-grid button:hover,.vision-grid button:focus-visible,.backcast-grid button:hover,.backcast-grid button:focus-visible{outline:none;border-color:var(--a)}
+.future-grid button.selected,.vision-grid button.selected,.backcast-grid button.selected{border-color:var(--a);background:#79f2c012}
+
+.city-card{padding:1.1rem;background:linear-gradient(145deg,#151d29,#111722);border:1px solid var(--line);border-radius:1rem;margin:1rem 0}
+.city-card h3{margin:.1rem 0 .7rem}
+.city-scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.city-scenes article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.city-scenes b{display:block;color:var(--a);margin-bottom:.4rem}
+.city-scenes p{color:var(--mut);font-size:.88rem;margin:0}
+
+.vision-grid{grid-template-columns:repeat(3,1fr)}
+.vision-grid button{min-height:8rem}
+.vision-grid small{display:block;margin-bottom:.45rem}
+.vision-summary{display:none;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009;margin-top:1rem}.vision-summary.on{display:block}
+
+.narrative-builder{display:grid;gap:1rem}
+.builder-row{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.builder-row label{display:block;color:var(--a);font-weight:800;margin-bottom:.5rem}
+.builder-row select,.builder-row textarea{width:100%;background:#0b1018;color:var(--txt);border:1px solid var(--line);border-radius:.75rem;padding:.8rem;font:inherit}
+.builder-row textarea{min-height:6rem;resize:vertical}
+.narrative-output{display:none;margin-top:1.2rem;padding:1rem;border:1px solid #79f2c077;border-radius:1rem;background:#79f2c008}
+.narrative-output.on{display:block}
+.narrative-output h3{margin:.1rem 0 .7rem}
+
+.backcast-line{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.6rem;align-items:center;margin:1.2rem 0}
+.backcast-line article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.backcast-line>span{color:var(--a);font-size:1.4rem}
+.backcast-line b{display:block;color:var(--a);margin-bottom:.35rem}
+.backcast-line p{color:var(--mut);font-size:.88rem;margin:0}
+.backcast-grid{grid-template-columns:repeat(3,1fr)}
+.backcast-feedback{display:none;margin-top:1rem;padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009}.backcast-feedback.on{display:block}
+
+.people-grid{grid-template-columns:repeat(3,1fr)}
+.person-card{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem}
+.person-card small{display:block;margin-bottom:.35rem}
+.person-card h3{margin:.1rem 0 .5rem}
+.person-card p{color:var(--mut);font-size:.88rem}
+.person-card strong{color:var(--txt)}
+
+.ethics-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.3rem 0}
+.ethics-card{padding:1.2rem;background:var(--s);border:1px solid var(--line);border-radius:1rem}
+.ethics-card>b{display:grid;place-items:center;width:3.8rem;aspect-ratio:1;border-radius:50%;background:var(--a);color:#07110d;font-size:1.5rem;margin-bottom:.8rem}
+.ethics-card h3{margin:.1rem 0 .5rem}
+.ethics-card p{color:var(--mut)}
+
+.final-tools{grid-template-columns:repeat(5,1fr)}
+.final-tools article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;text-align:center}
+.final-tools b{display:grid;place-items:center;width:2.8rem;aspect-ratio:1;border-radius:50%;background:#79f2c012;color:var(--a);margin:0 auto .55rem;font-size:1.25rem}
+.final-tools strong{display:block}
+.final-tools span{color:var(--mut);font-size:.8rem}
+
+.closing{padding:clamp(2rem,5vw,4rem);border:1px solid #79f2c077;border-radius:1.4rem;background:radial-gradient(circle at 50% 10%,#79f2c014,transparent 25rem),var(--s);text-align:center}
+.closing h2{font-size:clamp(2rem,5vw,4rem)}
+.closing-lines{max-width:45rem;margin:1.5rem auto;text-align:left}
+.closing-lines p{margin:.45rem 0;color:#cdd5df}
+.closing-lines strong{color:var(--a)}
+
+@media(max-width:55rem){.future-grid,.vision-grid,.people-grid,.final-tools{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:40rem){
+ .k8-nav{top:4.4rem}
+ .future-grid,.vision-grid,.people-grid,.final-tools,.ethics-pair,.backcast-grid{grid-template-columns:1fr}
+ .city-scenes{grid-template-columns:1fr}
+ .backcast-line{grid-template-columns:1fr}.backcast-line>span{text-align:center;transform:rotate(90deg)}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 8 von 8</span><div class="bar"><i style="width:100%"></i></div></div>
+</header>
+
+<nav class="k8-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a>
+  <a href="#vorstellen">Vorstellen</a>
+  <a href="#vision">Vision</a>
+  <a href="#narrativ">Narrativ</a>
+  <a href="#zurueckdenken">Zurückdenken</a>
+  <a href="#menschen">Menschen</a>
+  <a href="#abschluss">Abschluss</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small class="k8-label">08 · ZUKUNFT</small>
+  <h1>Die Welt, die noch nicht <em>existiert.</em></h1>
+  <p>Bis hierher hast du gelernt, wie unser Denken Wirklichkeit auswählt, deutet und manchmal verzerrt. Jetzt drehen wir die Richtung um: Wie können wir uns eine bessere Zukunft vorstellen – ohne in Wunschdenken abzurutschen?</p>
+</section>
+
+<section id="vorstellen">
+  <small>EXPERIMENT 01 · ZUKUNFT IST NICHT VORHERSAGE</small>
+  <h2>Welche Zukunft erscheint dir spontan am wahrscheinlichsten?</h2>
+
+  <article class="experiment" id="futureExp">
+    <p>Stell dir deine Stadt im Jahr 2045 vor. Welche Aussage kommt deinem ersten Bild am nächsten?</p>
+    <div class="future-grid">
+      <button data-kind="same"><strong>A · Fast wie heute</strong><br>Einige Technologien sind moderner, aber Alltag, Verkehr und Stadtbild haben sich nur langsam verändert.</button>
+      <button data-kind="tech"><strong>B · Vor allem technisch verändert</strong><br>Viele Fahrzeuge und Gebäude sind klimafreundlicher, ansonsten funktioniert die Stadt ähnlich wie heute.</button>
+      <button data-kind="transform"><strong>C · Deutlich umgebaut</strong><br>Mobilität, Energie, öffentlicher Raum und Konsum haben sich verändert – und damit auch das Lebensgefühl der Stadt.</button>
+    </div>
+    <button class="btn k8-action" disabled>Weiter →</button>
+
+    <div class="k8-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Keine dieser Antworten ist eine Vorhersage.</h3>
+      <p>Zukunft ist nicht etwas, das wir einfach „richtig erraten“. Unsere Vorstellungen hängen davon ab, welche Entwicklungen wir für möglich halten – und genau das beeinflusst wiederum, welche Veränderungen wir unterstützen oder anstoßen.</p>
+      <blockquote><b>Merksatz:</b> Eine Zukunftsvorstellung ist keine Prognose. Sie kann aber ein Ausgangspunkt für Handeln sein.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="vision">
+  <small>EXPERIMENT 02 · DEINE STADT 2045</small>
+  <h2>Wie soll eine lebenswerte klimaneutrale Stadt aussehen?</h2>
+
+  <article class="experiment" id="visionExp">
+    <p>Wähle <strong>vier Bereiche</strong>, die du für deine Stadt besonders verändern möchtest.</p>
+
+    <div class="vision-grid">
+      <button data-topic="Mobilität"><small>MOBILITÄT</small><strong>Leise, sicher, gut erreichbar</strong><br>Mehr Möglichkeiten ohne eigenes Auto, gute Verbindungen und sichere Wege.</button>
+      <button data-topic="Wohnen"><small>WOHNEN</small><strong>Komfortabel mit wenig Energie</strong><br>Sanierte Gebäude, gute Kühlung im Sommer und bezahlbare Wärme.</button>
+      <button data-topic="Energie"><small>ENERGIE</small><strong>Sauber und zuverlässig</strong><br>Erneuerbare Energie, Speicher, Netze und flexible Nutzung.</button>
+      <button data-topic="Natur"><small>NATUR</small><strong>Mehr Grün und Wasser</strong><br>Bäume, Parks, entsiegelte Flächen und Lebensräume für Arten.</button>
+      <button data-topic="Ernährung"><small>ERNÄHRUNG</small><strong>Gesund und ressourcenschonend</strong><br>Weniger Verschwendung und ein stärker pflanzenbetontes Angebot.</button>
+      <button data-topic="Öffentlicher Raum"><small>ÖFFENTLICHER RAUM</small><strong>Mehr Platz für Menschen</strong><br>Treffpunkte, Schatten, Spiel, Kultur und Aufenthaltsqualität.</button>
+    </div>
+
+    <button class="btn k8-action" disabled>Meine Auswahl ansehen →</button>
+
+    <div class="vision-summary">
+      <h3>Deine Vision hat vier Schwerpunkte:</h3>
+      <p id="visionTopics"></p>
+      <p>Eine Vision wird interessant, wenn sie nicht nur sagt, <em>was weg soll</em>, sondern beschreibt, <strong>wie ein besserer Zustand konkret aussehen könnte</strong>.</p>
+    </div>
+  </article>
+
+  <div class="city-card">
+    <small>EIN MÖGLICHES BILD</small>
+    <h3>2045 könnte sich nicht nur „klimaneutraler“, sondern anders anfühlen.</h3>
+    <div class="city-scenes">
+      <article><b>Morgens</b><p>Ein Kind fährt auf einem sicheren, begrünten Weg selbstständig zur Schule.</p></article>
+      <article><b>Mittags</b><p>Ein Platz, der früher Parkplatz war, bietet Schatten, Wasser und Sitzmöglichkeiten.</p></article>
+      <article><b>Abends</b><p>Gebäude bleiben auch bei Hitze angenehm, während Strom überwiegend erneuerbar erzeugt wird.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="narrativ">
+  <small>VON DER VISION ZUM NARRATIV</small>
+  <h2>Wie erzählen wir Veränderung?</h2>
+
+  <article class="experiment" id="narrativeBuilder">
+    <p>Baue aus denselben Veränderungen zwei verschiedene Geschichten. Wähle zunächst einen Schwerpunkt und ergänze einen Satz.</p>
+
+    <div class="narrative-builder">
+      <div class="builder-row">
+        <label for="frameSelect">1 · Welcher Deutungsrahmen?</label>
+        <select id="frameSelect">
+          <option value="">Bitte auswählen …</option>
+          <option value="loss">Verlust: Was müssen wir aufgeben?</option>
+          <option value="gain">Gewinn: Was können wir gewinnen?</option>
+          <option value="modern">Modernisierung: Was wird besser funktionieren?</option>
+        </select>
+      </div>
+
+      <div class="builder-row">
+        <label for="futureSentence">2 · Vervollständige den Satz</label>
+        <textarea id="futureSentence" placeholder="Im Jahr 2045 …"></textarea>
+      </div>
+    </div>
+
+    <button class="btn" id="buildNarrative">Narrativ erzeugen →</button>
+
+    <div class="narrative-output" id="narrativeOutput">
+      <small>DEIN NARRATIV</small>
+      <h3 id="narrativeTitle">–</h3>
+      <p id="narrativeText"></p>
+      <blockquote><b>Erinnerung aus Kapitel 2:</b> Ein Narrativ muss nicht falsch sein. Es wählt Fakten aus und verbindet sie zu einer Geschichte mit Bedeutung.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="zurueckdenken">
+  <small>EXPERIMENT 03 · BACKCASTING</small>
+  <h2>Nicht: „Was wird passieren?“ – sondern: „Was müsste vorher passieren?“</h2>
+
+  <div class="backcast-line">
+    <article><b>2045</b><p>Die Stadt ist klimaneutral und lebenswert.</p></article>
+    <span>←</span>
+    <article><b>2035</b><p>Welche Strukturen müssten dann bereits stehen?</p></article>
+    <span>←</span>
+    <article><b>Heute</b><p>Was müsste jetzt begonnen werden?</p></article>
+  </div>
+
+  <article class="experiment" id="backcastExp">
+    <h3>Ziel: Bis 2045 sind kurze Wege ohne Auto für fast alle Menschen einfach und attraktiv.</h3>
+    <p>Welche Maßnahme müsste eher <strong>früh</strong> beginnen, weil sie lange Planung und strukturelle Veränderungen braucht?</p>
+
+    <div class="backcast-grid">
+      <button data-kind="late">Eine Werbekampagne im Jahr 2044, die zu mehr Radfahren aufruft.</button>
+      <button data-kind="early">Ein langfristiger Umbau von Straßenraum, ÖPNV, Radwegen und Stadtplanung, der bereits heute startet.</button>
+      <button data-kind="late">Ein großer autofreier Aktionstag kurz vor Erreichen des Klimaziels.</button>
+    </div>
+
+    <div class="backcast-feedback" id="backcastFeedback"></div>
+  </article>
+
+  <article class="panel">
+    <h3>Backcasting</h3>
+    <p>Beim <strong>Backcasting</strong> beginnt man mit einem gewünschten Zukunftszustand und denkt von dort rückwärts: Welche Zwischenschritte, Entscheidungen und Infrastrukturen müssten vorher entstanden sein? Das ergänzt Prognosen um eine andere Frage: <strong>Was müssen wir tun, damit eine bestimmte Zukunft überhaupt möglich wird?</strong></p>
+  </article>
+</section>
+
+<section id="menschen">
+  <small>MENSCHEN VERÄNDERN, WAS ANDERE FÜR MÖGLICH HALTEN</small>
+  <h2>Positive Narrative können gesellschaftliche Räume öffnen.</h2>
+
+  <div class="people-grid">
+    <article class="person-card"><small>GERECHTIGKEIT</small><h3>Martin Luther King Jr.</h3><p>Sein „Dream“-Narrativ stellte einer ungerechten Gegenwart das Bild einer anderen gemeinsamen Gesellschaft entgegen.</p><strong>Neue Möglichkeit: Gleichberechtigung als erreichbare Zukunft.</strong></article>
+    <article class="person-card"><small>VERSÖHNUNG</small><h3>Nelson Mandela</h3><p>Nach der Apartheid wurde nicht nur der Sieg über ein System, sondern auch gemeinsames Weiterleben zu einem zentralen Narrativ.</p><strong>Neue Möglichkeit: Versöhnung statt Vergeltung.</strong></article>
+    <article class="person-card"><small>WIDERSTAND</small><h3>Mahatma Gandhi</h3><p>Gewaltloser ziviler Widerstand zeigte eine andere Vorstellung davon, wie politische Macht herausgefordert werden kann.</p><strong>Neue Möglichkeit: Veränderung ohne bewaffnete Gewalt.</strong></article>
+    <article class="person-card"><small>UMWELT</small><h3>Rachel Carson</h3><p>„Silent Spring“ half, Umweltverschmutzung als gesellschaftliches Problem sichtbar und erzählbar zu machen.</p><strong>Neue Möglichkeit: Natur als verletzliches gemeinsames Gut.</strong></article>
+    <article class="person-card"><small>SELBSTERMÄCHTIGUNG</small><h3>Wangari Maathai</h3><p>Bäume pflanzen wurde mit Frauenrechten, lokaler Selbstbestimmung und Demokratie verbunden.</p><strong>Neue Möglichkeit: Umweltschutz als gesellschaftliche Teilhabe.</strong></article>
+    <article class="person-card"><small>KLIMA</small><h3>Greta Thunberg</h3><p>Die Klimakrise wurde besonders für viele junge Menschen von einer fernen Zukunftsfrage zu einer aktuellen moralischen und politischen Frage.</p><strong>Neue Möglichkeit: Jugend als politische Stimme.</strong></article>
+  </div>
+
+  <blockquote><b>Wichtig:</b> Gesellschaftliche Veränderungen entstehen nie durch eine einzelne Person allein. Wir erinnern uns aber oft an Menschen, die einer Bewegung eine besonders klare Sprache oder ein starkes Bild gegeben haben.</blockquote>
+</section>
+
+<section>
+  <small>ZWEI HALTUNGEN ZUM SCHLUSS</small>
+  <h2>Anstand und Optimismus.</h2>
+
+  <div class="ethics-pair">
+    <article class="ethics-card">
+      <b>✓</b>
+      <h3>Anstand</h3>
+      <p>Verantwortlich, fair und respektvoll handeln – auch dann, wenn keine unmittelbare Belohnung folgt und niemand zusieht.</p>
+      <strong>Leitfrage: Wie sollte ich handeln?</strong>
+    </article>
+
+    <article class="ethics-card">
+      <b>↑</b>
+      <h3>Optimismus</h3>
+      <p>Probleme realistisch sehen und trotzdem davon ausgehen, dass sinnvolles gemeinsames Handeln Veränderung ermöglichen kann.</p>
+      <strong>Leitfrage: Warum lohnt es sich zu handeln?</strong>
+    </article>
+  </div>
+</section>
+
+<section>
+  <small>DEIN DENKWERKZEUGKASTEN</small>
+  <h2>Fünf Fragen für komplexe Situationen.</h2>
+
+  <div class="final-tools">
+    <article><b>?</b><strong>Neugier</strong><span>Was weiß ich noch nicht?</span></article>
+    <article><b>◇</b><strong>Zweifel</strong><span>Welche Evidenz habe ich?</span></article>
+    <article><b>↔</b><strong>Perspektive</strong><span>Was sehe ich anders?</span></article>
+    <article><b>◎</b><strong>System</strong><span>Was hängt zusammen?</span></article>
+    <article><b>↗</b><strong>Hebel</strong><span>Wo wirkt Veränderung?</span></article>
+  </div>
+</section>
+
+<section class="closing" id="abschluss">
+  <small>KAPITEL 8 · ABSCHLUSS</small>
+  <h2>Wie siehst du die Welt?</h2>
+
+  <div class="closing-lines">
+    <p>Du kannst die Welt nicht vollständig objektiv sehen.</p>
+    <p>Aber du kannst lernen, <strong>genauer hinzusehen.</strong></p>
+    <p>Du kannst <strong>zweifeln.</strong></p>
+    <p>Du kannst <strong>herauszoomen.</strong></p>
+    <p>Du kannst <strong>Zusammenhänge erkennen.</strong></p>
+    <p>Du kannst dir vorstellen, dass es <strong>anders sein könnte.</strong></p>
+    <p>Und du kannst <strong>handeln.</strong></p>
+  </div>
+
+  <div class="takeaways">
+    <span>Wirklichkeit prüfen</span>
+    <span>Perspektiven wechseln</span>
+    <span>Zukunft vorstellen</span>
+    <span>Systeme verändern</span>
+    <span>Handlungsfähig bleiben</span>
+  </div>
+
+  <button class="btn" id="done8">Kurs abschließen ✓</button>
+
+  <a class="next" href="index.html">
+    <small>ZURÜCK ZUR ÜBERSICHT</small>
+    <strong>Deine Lernreise ansehen →</strong>
+    <span>Alle acht Kapitel · fünf Denkwerkzeuge</span>
+  </a>
+</section>
+</main>
+
+<footer><a href="index.html">← Zur Lernreise</a><span>08 · Zukunft</span></footer>
+
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  // Zukunftsvorstellung
+  const future=document.querySelector("#futureExp");
+  if(future){
+    const bs=[...future.querySelectorAll(".future-grid button")];
+    const action=future.querySelector(".k8-action");
+    bs.forEach(b=>b.addEventListener("click",()=>{
+      bs.forEach(x=>x.classList.remove("selected"));b.classList.add("selected");action.disabled=false;
+    }));
+    action.addEventListener("click",()=>{
+      future.querySelector(".k8-reveal").classList.add("on");action.style.display="none";
+    });
+  }
+
+  // Vision: genau vier Bereiche
+  const vision=document.querySelector("#visionExp");
+  if(vision){
+    const bs=[...vision.querySelectorAll(".vision-grid button")];
+    const action=vision.querySelector(".k8-action");
+    const sync=()=>{action.disabled=bs.filter(x=>x.classList.contains("selected")).length!==4};
+    bs.forEach(b=>b.addEventListener("click",()=>{
+      if(!b.classList.contains("selected") && bs.filter(x=>x.classList.contains("selected")).length>=4)return;
+      b.classList.toggle("selected");sync();
+    }));
+    action.addEventListener("click",()=>{
+      const topics=bs.filter(x=>x.classList.contains("selected")).map(x=>x.dataset.topic);
+      vision.querySelector("#visionTopics").innerHTML="<strong>"+topics.join(" · ")+"</strong>";
+      vision.querySelector(".vision-summary").classList.add("on");action.style.display="none";
+    });
+  }
+
+  // Narrativ bauen
+  const builder=document.querySelector("#narrativeBuilder");
+  if(builder){
+    const select=builder.querySelector("#frameSelect");
+    const text=builder.querySelector("#futureSentence");
+    builder.querySelector("#buildNarrative").addEventListener("click",()=>{
+      if(!select.value){select.focus();return}
+      if(!text.value.trim()){text.focus();return}
+      const titles={
+        loss:"Narrativ: Veränderung als Verzicht",
+        gain:"Narrativ: Veränderung als Gewinn",
+        modern:"Narrativ: Veränderung als Modernisierung"
+      };
+      builder.querySelector("#narrativeTitle").textContent=titles[select.value];
+      builder.querySelector("#narrativeText").textContent=text.value.trim();
+      builder.querySelector("#narrativeOutput").classList.add("on");
+    });
+  }
+
+  // Backcasting
+  const back=document.querySelector("#backcastExp");
+  if(back){
+    const feedback=back.querySelector("#backcastFeedback");
+    back.querySelectorAll(".backcast-grid button").forEach(b=>b.addEventListener("click",()=>{
+      back.querySelectorAll(".backcast-grid button").forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      if(b.dataset.kind==="early"){
+        feedback.innerHTML="<strong>Genau.</strong> Infrastruktur und Stadtplanung brauchen Jahre oder Jahrzehnte. Wer von einem Zielzustand rückwärts denkt, erkennt deshalb leichter, welche Entscheidungen früh beginnen müssen.";
+      }else{
+        feedback.innerHTML="<strong>Das kann unterstützend wirken,</strong> verändert aber die strukturellen Bedingungen zu spät oder nur kurzfristig. Backcasting richtet den Blick besonders auf Schritte, die lange Vorläufe haben.";
+      }
+      feedback.classList.add("on");
+    }));
+  }
+
+  // Fortschritt
+  const done=document.querySelector("#done8");
+  if(done){
+    const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
+    if(current.includes(8))done.textContent="Kurs abgeschlossen ✓";
+    done.addEventListener("click",()=>{
+      const set=new Set(JSON.parse(localStorage.getItem("wsdwDone")||"[]"));
+      set.add(8);localStorage.setItem("wsdwDone",JSON.stringify([...set]));
+      done.textContent="Kurs abgeschlossen ✓";
+    });
+  }
+});
+</script>
+</body>
+</html>
