@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>04 · Ein wirklich großes Problem</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Kapitel 4 – Ergänzungen; Grundlayout bleibt identisch */
+.k4-nav{position:sticky;top:4.45rem;z-index:9;display:flex;gap:.45rem;overflow:auto;padding:.55rem max(4%,calc((100% - 70rem)/2));background:#0b0e14e8;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff0d;scrollbar-width:none}
+.k4-nav a{white-space:nowrap;padding:.35rem .65rem;border:1px solid var(--line);border-radius:99rem;color:var(--mut);font-size:.75rem}
+.k4-nav a:hover{color:var(--txt);border-color:var(--a)}
+.k4-label{font-size:clamp(.88rem,1.6vw,1.05rem)}
+.k4-reveal{display:none;max-width:48rem;margin:1.5rem auto 0}
+.k4-reveal.on{display:block}
+.k4-action:disabled{opacity:.38;cursor:not-allowed}
+
+/* Normalitäts-Bias */
+.warning-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem;margin:1rem 0}
+.warning-icon{display:grid;place-items:center;width:3rem;aspect-ratio:1;border-radius:50%;background:#79f2c012;color:var(--a);font-weight:900}
+.decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.2rem 0}
+.decision-grid button,.distance-options button,.problem-options button,.cassandra-options button,.synthesis-options button{
+  padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;color:var(--txt);font:inherit;text-align:left;cursor:pointer
+}
+.decision-grid button:hover,.decision-grid button:focus-visible,
+.distance-options button:hover,.distance-options button:focus-visible,
+.problem-options button:hover,.problem-options button:focus-visible,
+.cassandra-options button:hover,.cassandra-options button:focus-visible,
+.synthesis-options button:hover,.synthesis-options button:focus-visible{outline:none;border-color:var(--a)}
+.decision-grid button.selected,.distance-options button.selected,.problem-options button.selected,.cassandra-options button.selected,.synthesis-options button.selected{
+  border-color:var(--a);background:#79f2c012
+}
+
+/* Psychologische Distanz */
+.distance-demo{display:grid;gap:1rem;margin:1.3rem 0}
+.distance-row{display:grid;grid-template-columns:8rem 1fr;gap:1rem;align-items:center}
+.distance-row span{color:var(--mut);font-size:.9rem}
+.distance-scale{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}
+.distance-scale button{min-height:3rem;text-align:center;padding:.6rem}
+.distance-result{padding:1rem;border-left:.22rem solid var(--a);background:#79f2c009;margin-top:1rem}
+
+/* Großes Problem */
+.problem-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0}
+.problem-card{padding:1.2rem;background:var(--s2);border:1px solid var(--line);border-radius:1rem}
+.problem-card b{display:block;color:var(--a);font-size:1.2rem;margin-bottom:.5rem}
+.problem-card p{color:var(--mut);margin:.4rem 0}
+.problem-meter{height:.45rem;background:#222a38;border-radius:99rem;overflow:hidden;margin-top:1rem}
+.problem-meter i{display:block;height:100%;background:var(--a);width:var(--w)}
+
+/* Kassandra */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin:1.3rem 0}
+.timeline article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem;min-height:10rem}
+.timeline small{display:block;margin-bottom:.5rem}
+.timeline p{margin:.3rem 0;color:var(--mut)}
+.timeline strong{color:var(--txt)}
+.cassandra-note{padding:1rem;background:#9db8ff0d;border:1px solid #9db8ff44;border-radius:.9rem;margin:1rem 0}
+
+/* Zusammenspiel */
+.mechanism-chain{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1.4rem 0}
+.mechanism-chain article{position:relative;padding:1rem;background:var(--s);border:1px solid var(--line);border-radius:.9rem}
+.mechanism-chain article:not(:last-child)::after{content:"→";position:absolute;right:-.75rem;top:50%;transform:translateY(-50%);color:var(--a);z-index:2}
+.mechanism-chain b{display:block;color:var(--a);margin-bottom:.35rem}
+.mechanism-chain p{margin:0;color:var(--mut);font-size:.9rem}
+.revisit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin:1rem 0}
+.revisit-grid article{padding:1rem;background:var(--s2);border:1px solid var(--line);border-radius:.9rem}
+.revisit-grid b{color:var(--a)}
+.revisit-grid p{color:var(--mut);margin:.35rem 0}
+
+/* Transfer */
+.case-card{padding:1.1rem;background:var(--s);border:1px solid var(--line);border-radius:1rem}
+.case-card h3{margin:.1rem 0 .7rem}
+.synthesis-options{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:1rem}
+.case-feedback{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut)}
+.case-feedback.on{display:block}
+.k4-tool{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center;padding:clamp(1.2rem,3vw,2rem);border:1px solid #79f2c077;border-radius:1.3rem;background:var(--s)}
+.k4-tool>b{display:grid;place-items:center;width:4rem;aspect-ratio:1;border-radius:50%;background:var(--a);color:#07110d;font-size:2rem}
+.k4-tool h2{margin:0}
+.k4-tool p{margin:.2rem 0;color:var(--mut)}
+
+@media(max-width:48rem){
+ .decision-grid,.timeline,.mechanism-chain{grid-template-columns:1fr 1fr}
+ .problem-pair{grid-template-columns:1fr}
+}
+@media(max-width:40rem){
+ .k4-nav{top:4.4rem}
+ .decision-grid,.timeline,.mechanism-chain,.revisit-grid,.synthesis-options{grid-template-columns:1fr}
+ .distance-row{grid-template-columns:1fr}
+ .mechanism-chain article:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-1.1rem;transform:translateX(50%)}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html" class="logo">WSDW</a>
+  <div class="head-progress"><span>Kapitel 4 von 8</span><div class="bar"><i style="width:50%"></i></div></div>
+</header>
+
+<nav class="k4-nav" aria-label="Kapitelabschnitte">
+  <a href="#start">Start</a>
+  <a href="#normalitaet">Normalität</a>
+  <a href="#distanz">Distanz</a>
+  <a href="#problem">Problemgröße</a>
+  <a href="#kassandra">Kassandra</a>
+  <a href="#zusammenspiel">Zusammenspiel</a>
+  <a href="#transfer">Transfer</a>
+</nav>
+
+<main>
+<section class="lessonhero" id="start">
+  <small class="k4-label">04 · KOMPLEXITÄT</small>
+  <h1>Ein wirklich <em>großes Problem.</em></h1>
+  <p>Warum reagieren Menschen auf manche Gefahren sofort – und auf andere erstaunlich langsam? Die Klimakrise ist ein guter Testfall für unser Denken: langfristig, komplex, global und trotzdem sehr real.</p>
+</section>
+
+<section>
+  <small>DER TESTFALL</small>
+  <h2>Wir wissen viel. Warum handeln wir trotzdem oft zu spät?</h2>
+  <article class="panel">
+    <p>Bei einer akuten Gefahr ist die Lage einfach: Feuer im Raum → raus. Bei großen, langsamen Problemen funktioniert unser intuitives Denken schlechter. Mehrere psychologische Mechanismen können gleichzeitig dafür sorgen, dass eine reale Gefahr <strong>weniger dringend wirkt, als sie ist</strong>.</p>
+    <blockquote><b>Leitfrage für dieses Kapitel:</b> Was macht große Probleme psychologisch so schwer greifbar?</blockquote>
+  </article>
+</section>
+
+<section id="normalitaet">
+  <small>EXPERIMENT 01 · NORMALITÄT</small>
+  <h2>„Bisher ist doch nichts passiert.“</h2>
+  <article class="experiment" id="normalExp">
+    <div class="warning-card">
+      <div class="warning-icon">!</div>
+      <div><strong>Hochwasserwarnung</strong><p>Für deine Region wird ein ungewöhnlich starkes Hochwasser angekündigt. Dein Haus war bei den letzten drei Hochwassern nicht betroffen.</p></div>
+    </div>
+    <h3>Was wäre dein spontaner Gedanke?</h3>
+    <div class="decision-grid">
+      <button>„Dann wird es diesmal wahrscheinlich auch gut gehen.“</button>
+      <button>„Ich schaue nach, wie sich die aktuelle Lage von früher unterscheidet.“</button>
+      <button>„Warnungen sind meistens übertrieben.“</button>
+    </div>
+    <button class="btn k4-action" disabled>Auflösung anzeigen →</button>
+    <div class="k4-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Vergangenheit fühlt sich wie ein guter Maßstab für die Zukunft an.</h3>
+      <p>Der <strong>Normalitäts-Bias</strong> beschreibt die Tendenz, auch bei ungewöhnlichen Entwicklungen zunächst davon auszugehen, dass im Wesentlichen alles so weitergeht wie bisher. Warnzeichen werden dadurch leichter unterschätzt.</p>
+      <div class="k4-term">Fachbegriff: <strong>Normalcy Bias (Normalitäts-Bias)</strong></div>
+      <blockquote><b>Merksatz:</b> Dass etwas bisher gut gegangen ist, beweist nicht, dass es so bleiben muss.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="distanz">
+  <small>EXPERIMENT 02 · DISTANZ</small>
+  <h2>Wie nah fühlt sich ein Problem an?</h2>
+  <article class="experiment" id="distanceExp">
+    <p>Stell dir dieselbe Klimafolge in unterschiedlichen Entfernungen vor. Tippe pro Zeile an, welche Variante sich für dich spontaner und unmittelbarer anfühlt.</p>
+
+    <div class="distance-demo">
+      <div class="distance-row">
+        <span>Zeit</span>
+        <div class="distance-scale distance-options">
+          <button data-d="near">diesen Sommer</button>
+          <button data-d="mid">in 10 Jahren</button>
+          <button data-d="far">im Jahr 2100</button>
+        </div>
+      </div>
+      <div class="distance-row">
+        <span>Ort</span>
+        <div class="distance-scale distance-options">
+          <button data-d="near">deine Stadt</button>
+          <button data-d="mid">Südeuropa</button>
+          <button data-d="far">eine ferne Region</button>
+        </div>
+      </div>
+      <div class="distance-row">
+        <span>Person</span>
+        <div class="distance-scale distance-options">
+          <button data-d="near">du selbst</button>
+          <button data-d="mid">Menschen in deinem Land</button>
+          <button data-d="far">zukünftige Generationen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="distance-result">
+      <strong id="distanceHeadline">Beobachte deine Auswahl.</strong>
+      <p id="distanceText">Je näher ein Problem zeitlich, räumlich oder persönlich erscheint, desto konkreter und dringlicher wirkt es häufig.</p>
+    </div>
+
+    <button class="btn k4-action">Begriff anzeigen →</button>
+    <div class="k4-reveal">
+      <h3>Entfernung verändert, wie konkret etwas wirkt.</h3>
+      <p><strong>Psychologische Distanz</strong> beschreibt, dass zeitlich, räumlich oder sozial entfernte Ereignisse abstrakter wahrgenommen werden. Genau das kann langfristige Gefahren weniger handlungsnah erscheinen lassen.</p>
+      <blockquote><b>Prüffrage:</b> Würde ich dasselbe Problem anders bewerten, wenn es morgen, hier und bei mir selbst passiert?</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="problem">
+  <small>EXPERIMENT 03 · PROBLEMGRÖSSE</small>
+  <h2>Je größer das Problem, desto stärker die Reaktion?</h2>
+  <article class="experiment" id="problemExp">
+    <div class="problem-pair">
+      <article class="problem-card">
+        <b>A · Wasserrohrbruch</b>
+        <p>In deinem Keller stehen zehn Zentimeter Wasser. Der Schaden ist überschaubar, aber unmittelbar sichtbar.</p>
+        <div class="problem-meter"><i style="--w:35%"></i></div>
+      </article>
+      <article class="problem-card">
+        <b>B · Globale Erwärmung</b>
+        <p>Ein weltweites Problem verändert über Jahrzehnte Temperaturen, Niederschläge, Ökosysteme und Risiken.</p>
+        <div class="problem-meter"><i style="--w:95%"></i></div>
+      </article>
+    </div>
+
+    <h3>Bei welchem Problem fällt dir spontan leichter ein, was du jetzt tun könntest?</h3>
+    <div class="problem-options decision-grid">
+      <button>A · Wasserrohrbruch</button>
+      <button>B · Globale Erwärmung</button>
+      <button>Bei beiden gleich leicht</button>
+    </div>
+    <button class="btn k4-action" disabled>Auflösung anzeigen →</button>
+
+    <div class="k4-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Große Probleme können ausgerechnet weniger handhabbar wirken.</h3>
+      <p>Sehr große, langfristige und komplexe Probleme können überwältigend und abstrakt erscheinen. Statt mehr Handlung auszulösen, können sie zu Verdrängung, Gewöhnung oder dem Gefühl führen: <em>„Was soll ich allein schon tun?“</em></p>
+      <p>Für dieses Muster verwenden wir hier den anschaulichen Begriff <strong>Großes-Problem-Paradoxon</strong>. Es ist kein so klar definierter psychologischer Fachbegriff wie der Normalitäts-Bias, sondern eine hilfreiche Denkfigur.</p>
+      <blockquote><b>Merksatz:</b> Ein größeres Problem erzeugt nicht automatisch ein stärkeres Gefühl von Handlungsfähigkeit.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="kassandra">
+  <small>EXPERIMENT 04 · WARNUNGEN</small>
+  <h2>Wann klingt eine Warnung „zu dramatisch“?</h2>
+  <article class="experiment" id="cassandraExp">
+    <div class="timeline">
+      <article><small>PHASE 1</small><strong>Frühe Warnung</strong><p>Fachleute weisen auf ein zunehmendes Risiko hin. Im Alltag ist davon kaum etwas zu spüren.</p></article>
+      <article><small>PHASE 2</small><strong>Deutlichere Daten</strong><p>Messreihen zeigen den Trend immer klarer. Die Folgen bleiben aber ungleich verteilt.</p></article>
+      <article><small>PHASE 3</small><strong>Erste spürbare Folgen</strong><p>Extremereignisse und Schäden werden sichtbarer. Trotzdem bleibt die Ursache komplex.</p></article>
+      <article><small>PHASE 4</small><strong>Rückblick</strong><p>Im Nachhinein wirken frühere Warnungen plötzlich viel plausibler.</p></article>
+    </div>
+
+    <div class="cassandra-note">
+      <strong>Stell dir vor:</strong> In Phase 1 sagt jemand: „Wenn wir nichts verändern, wird das in einigen Jahrzehnten große Probleme verursachen.“
+    </div>
+
+    <h3>Warum könnte diese Warnung damals leicht übertrieben wirken?</h3>
+    <div class="cassandra-options decision-grid">
+      <button>Weil die Folgen noch nicht unmittelbar sichtbar sind.</button>
+      <button>Weil Menschen starke Veränderungen schwer aus dem bisherigen Alltag ableiten.</button>
+      <button>Weil eine Warnung automatisch falsch ist, wenn sie dramatisch klingt.</button>
+    </div>
+    <button class="btn k4-action" disabled>Auflösung anzeigen →</button>
+
+    <div class="k4-reveal">
+      <p class="tag">AUFLÖSUNG</p>
+      <h3>Warnende können recht haben – und trotzdem unglaubwürdig wirken.</h3>
+      <p>Das <strong>Kassandra-Syndrom</strong> ist eine metaphorische Bezeichnung für Situationen, in denen vor einer realen Gefahr gewarnt wird, die Warnung aber nicht ernst genommen wird. Der Name geht auf Kassandra aus der griechischen Mythologie zurück, deren richtige Prophezeiungen niemand glaubte.</p>
+      <p>Wichtig: Nicht jede Warnung ist deshalb richtig. Gute Warnungen brauchen <strong>Evidenz</strong>. Das Problem entsteht, wenn gute Evidenz psychologisch weniger stark wirkt als der vertraute Alltag.</p>
+      <blockquote><b>Merksatz:</b> Eine schwer vorstellbare Gefahr kann eine gut begründete Warnung unglaubwürdig erscheinen lassen.</blockquote>
+    </div>
+  </article>
+</section>
+
+<section id="zusammenspiel">
+  <small>ZUSAMMENSPIEL</small>
+  <h2>Vier Mechanismen können sich gegenseitig verstärken.</h2>
+
+  <div class="mechanism-chain">
+    <article><b>Normalität</b><p>„Bisher ging es doch auch.“</p></article>
+    <article><b>Distanz</b><p>„Das ist weit weg.“</p></article>
+    <article><b>Problemgröße</b><p>„Das ist viel zu groß.“</p></article>
+    <article><b>Kassandra</b><p>„Die übertreiben bestimmt.“</p></article>
+  </div>
+
+  <article class="panel">
+    <h3>Und jetzt kommen frühere Kapitel zurück.</h3>
+    <div class="revisit-grid">
+      <article><b>Confirmation Bias</b><p>Wir nehmen leichter Informationen an, die zu unserem bisherigen Weltbild oder Lebensstil passen.</p></article>
+      <article><b>WYSIATI</b><p>Was gerade sichtbar ist, erscheint vollständiger, als es tatsächlich ist.</p></article>
+      <article><b>Conformity Bias</b><p>Wenn das Umfeld ruhig bleibt, wirkt die Lage vielleicht weniger dringend.</p></article>
+      <article><b>Framing</b><p>Ob ein Problem als Verlust, Chance oder Zumutung erzählt wird, verändert seine Wirkung.</p></article>
+    </div>
+  </article>
+
+  <blockquote><b>Die wichtige Erkenntnis:</b> Bei großen gesellschaftlichen Problemen wirkt selten nur ein einzelner Bias. Mehrere Denkmechanismen können gleichzeitig unser Urteil beeinflussen.</blockquote>
+</section>
+
+<section id="transfer">
+  <small>TRANSFER · WAS PASSIERT HIER?</small>
+  <h2>Erkennst du die Mechanismen?</h2>
+
+  <div class="case-card" id="caseExp">
+    <h3>Eine Stadt liegt an einem Fluss. Fachleute empfehlen zusätzliche Hochwasserschutzmaßnahmen. In der Bürgerversammlung sagt jemand:</h3>
+    <blockquote>„Seit 60 Jahren hatten wir hier keine große Überschwemmung. Warum sollen wir jetzt Millionen ausgeben? Und wenn es wirklich so schlimm wäre, würden doch viel mehr Leute Alarm schlagen.“</blockquote>
+
+    <p>Welche Mechanismen erkennst du? Mehrere Antworten sind möglich.</p>
+    <div class="synthesis-options">
+      <button data-correct="yes">Normalitäts-Bias</button>
+      <button data-correct="yes">Conformity Bias</button>
+      <button data-correct="no">Peak-End Rule</button>
+      <button data-correct="yes">Kassandra-Problem</button>
+    </div>
+
+    <div class="case-feedback">
+      <strong>Gut beobachtet:</strong> Besonders deutlich sind Normalitäts-Bias („60 Jahre nichts passiert“) und sozialer Einfluss („sonst würden mehr Leute Alarm schlagen“). Je nach Kontext kann auch das Kassandra-Muster eine Rolle spielen, wenn fachlich begründete Warnungen als übertrieben abgetan werden.
+    </div>
+  </div>
+</section>
+
+<section class="k4-tool">
+  <b>◎</b>
+  <div>
+    <small>DENKWERKZEUG FREIGESCHALTET</small>
+    <h2>System</h2>
+    <p><strong>Welche Faktoren wirken zusammen – statt nur: Was ist die eine Ursache?</strong></p>
+  </div>
+</section>
+
+<section class="end" id="abschluss">
+  <small>KAPITEL 4 · ABSCHLUSS</small>
+  <h2>Große Probleme brauchen anderes Denken.</h2>
+  <p>Je größer, langfristiger und komplexer ein Problem ist, desto weniger sollten wir uns allein auf unser spontanes Gefühl von Dringlichkeit verlassen. Dann werden Evidenz, Perspektivwechsel und Systemdenken besonders wichtig.</p>
+
+  <div class="takeaways">
+    <span>Normalität kann täuschen</span>
+    <span>Distanz macht abstrakt</span>
+    <span>Größe kann lähmen</span>
+    <span>Warnungen brauchen Evidenz</span>
+    <span>Mechanismen wirken zusammen</span>
+  </div>
+
+  <button class="btn" id="done4">Kapitel 4 als bearbeitet markieren ✓</button>
+
+  <a class="next disabled" href="#" aria-disabled="true">
+    <small>ALS NÄCHSTES</small>
+    <strong>05 · ZOOM OUT! →</strong>
+    <span>Overview Effect · langfristige Entwicklung · Big Five · planetare Grenzen</span>
+  </a>
+</section>
+</main>
+
+<footer><a href="index.html">← Zur Lernreise</a><span>04 · Komplexität</span></footer>
+
+<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  function setupSingleChoice(id){
+    const exp=document.querySelector(id);
+    if(!exp)return;
+    const buttons=[...exp.querySelectorAll(".decision-grid button")];
+    const action=exp.querySelector(".k4-action");
+    const reveal=exp.querySelector(".k4-reveal");
+    buttons.forEach(b=>b.addEventListener("click",()=>{
+      buttons.forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      action.disabled=false;
+    }));
+    action.addEventListener("click",()=>{
+      reveal.classList.add("on");
+      action.style.display="none";
+    });
+  }
+
+  setupSingleChoice("#normalExp");
+  setupSingleChoice("#problemExp");
+  setupSingleChoice("#cassandraExp");
+
+  // Psychologische Distanz
+  const dist=document.querySelector("#distanceExp");
+  if(dist){
+    const rows=[...dist.querySelectorAll(".distance-row")];
+    const headline=dist.querySelector("#distanceHeadline");
+    const text=dist.querySelector("#distanceText");
+    const update=()=>{
+      const chosen=[...dist.querySelectorAll(".distance-options button.selected")];
+      const near=chosen.filter(x=>x.dataset.d==="near").length;
+      const far=chosen.filter(x=>x.dataset.d==="far").length;
+      if(chosen.length===0){
+        headline.textContent="Beobachte deine Auswahl.";
+        text.textContent="Je näher ein Problem zeitlich, räumlich oder persönlich erscheint, desto konkreter und dringlicher wirkt es häufig.";
+      }else if(near>far){
+        headline.textContent="Du hast eher nahe Varianten gewählt.";
+        text.textContent="Nähe macht Folgen oft konkreter: Sie lassen sich leichter vorstellen und mit dem eigenen Leben verbinden.";
+      }else if(far>near){
+        headline.textContent="Du hast eher entfernte Varianten gewählt.";
+        text.textContent="Interessant – deine Auswahl zeigt, dass persönliche Reaktionen unterschiedlich sein können. Im Durchschnitt werden entfernte Folgen jedoch oft abstrakter verarbeitet.";
+      }else{
+        headline.textContent="Deine Auswahl ist gemischt.";
+        text.textContent="Psychologische Distanz ist kein Schalter. Zeit, Ort und persönliche Betroffenheit können unterschiedlich stark wirken.";
+      }
+    };
+    rows.forEach(row=>{
+      const buttons=[...row.querySelectorAll("button")];
+      buttons.forEach(b=>b.addEventListener("click",()=>{
+        buttons.forEach(x=>x.classList.remove("selected"));
+        b.classList.add("selected");
+        update();
+      }));
+    });
+    const action=dist.querySelector(".k4-action");
+    action.addEventListener("click",()=>{
+      dist.querySelector(".k4-reveal").classList.add("on");
+      action.style.display="none";
+    });
+  }
+
+  // Transferfall – Mehrfachauswahl
+  const caseExp=document.querySelector("#caseExp");
+  if(caseExp){
+    const buttons=[...caseExp.querySelectorAll(".synthesis-options button")];
+    buttons.forEach(b=>b.addEventListener("click",()=>{
+      b.classList.toggle("selected");
+      caseExp.querySelector(".case-feedback").classList.add("on");
+    }));
+  }
+
+  // Fortschritt
+  const done=document.querySelector("#done4");
+  if(done){
+    const current=JSON.parse(localStorage.getItem("wsdwDone")||"[]");
+    if(current.includes(4))done.textContent="Kapitel 4 ist bearbeitet ✓";
+    done.addEventListener("click",()=>{
+      const set=new Set(JSON.parse(localStorage.getItem("wsdwDone")||"[]"));
+      set.add(4);
+      localStorage.setItem("wsdwDone",JSON.stringify([...set]));
+      done.textContent="Kapitel 4 ist bearbeitet ✓";
+    });
+  }
+});
+</script>
+</body>
+</html>
