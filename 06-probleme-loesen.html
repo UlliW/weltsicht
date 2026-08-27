@@ -137,11 +137,11 @@
 
     <div class="ingredient-grid">
       <button data-good="yes"><small>01</small><strong>Klare wissenschaftliche Evidenz</strong><br>Ursache und Mechanismus wurden zunehmend gut verstanden.</button>
-      <button data-good="yes"><small>02</small><strong>Verbindliche internationale Regeln</strong><br>Nicht nur freiwillige Appelle.</button>
-      <button data-good="yes"><small>03</small><strong>Technische Alternativen</strong><br>Unternehmen konnten auf andere Stoffe und Verfahren umstellen.</button>
-      <button data-good="yes"><small>04</small><strong>Nachsteuern</strong><br>Das Abkommen konnte verschärft und erweitert werden.</button>
-      <button data-good="no"><small>05</small><strong>Alle Staaten waren sich von Anfang an völlig einig</strong><br>Es gab keinerlei Interessenkonflikte.</button>
-      <button data-good="no"><small>06</small><strong>Das Problem löste sich von allein</strong><br>Politisches Handeln spielte kaum eine Rolle.</button>
+      <button data-good="no"><small>02</small><strong>Öffentlicher Druck als entscheidender Hauptfaktor</strong><br>Vor allem die Sorge der Bevölkerung zwang Politik und Wirtschaft zum schnellen weltweiten Umstieg.</button>
+      <button data-good="yes"><small>03</small><strong>Verbindliche internationale Regeln</strong><br>Nicht nur freiwillige Appelle, sondern gemeinsam vereinbarte Vorgaben.</button>
+      <button data-good="yes"><small>04</small><strong>Technische Alternativen</strong><br>Unternehmen konnten auf andere Stoffe und Verfahren umstellen.</button>
+      <button data-good="no"><small>05</small><strong>Einmaliger Beschluss mit langfristiger Planungssicherheit</strong><br>Der Erfolg beruhte vor allem darauf, dass die Regeln von Beginn an vollständig feststanden und danach kaum verändert wurden.</button>
+      <button data-good="yes"><small>06</small><strong>Nachsteuern</strong><br>Das Abkommen konnte verschärft und auf weitere Stoffe ausgeweitet werden.</button>
     </div>
 
     <button class="btn k6-action" disabled>Auswertung anzeigen →</button>
@@ -212,7 +212,7 @@
     <div class="optimism-grid">
       <button data-kind="naive"><strong>A</strong><br>„Die Technik wird das schon irgendwie lösen. Wir müssen uns nicht zu viele Sorgen machen.“</button>
       <button data-kind="realistic"><strong>B</strong><br>„Das Problem ist ernst. Aber wir kennen Beispiele, in denen gemeinsames Handeln große Veränderungen bewirkt hat.“</button>
-      <button data-kind="fatalistic"><strong>C</strong><br>„Wenn das Problem wirklich so groß ist, kann man ohnehin nichts mehr machen.“</button>
+      <button data-kind="fatalistic"><strong>C</strong><br>„Das Problem ist ernst. Deshalb sollten wir erst dann optimistisch sein, wenn wir sicher wissen, dass die geplanten Maßnahmen ausreichen werden.“</button>
     </div>
 
     <div class="optimism-feedback" id="optimismFeedback"></div>
@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       const msgs={
         naive:"A ist eher naiver Optimismus: Hoffnung ersetzt hier die Analyse und das Handeln.",
         realistic:"B trifft es: Das Problem wird nicht verharmlost, aber historische Evidenz zeigt, dass koordiniertes Handeln Wirkung haben kann.",
-        fatalistic:"C ist Fatalismus: Aus der Größe des Problems wird geschlossen, dass Handeln wirkungslos sei – genau diese Schlussfolgerung folgt aber nicht."
+        fatalistic:"C klingt zunächst vernünftig, setzt Optimismus aber mit Gewissheit gleich. Begründeter Optimismus braucht keine Garantie auf Erfolg – sondern gute Gründe dafür, dass Handeln Wirkung entfalten kann."
       };
       feedback.textContent=msgs[b.dataset.kind];
       feedback.classList.add("on");
